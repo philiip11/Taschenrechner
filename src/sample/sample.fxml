@@ -47,7 +47,7 @@
                    GridPane.columnIndex="2" GridPane.rowIndex="7"/>
         <JFXButton fx:id="plusminus" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="±"
                    GridPane.columnIndex="1" GridPane.rowIndex="7"/>
-        <JFXButton fx:id="comma" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text=","
+        <JFXButton fx:id="decimal" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text=","
                    GridPane.columnIndex="3" GridPane.rowIndex="7"/>
         <JFXButton fx:id="multiply" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="×"
                    GridPane.columnIndex="4" GridPane.rowIndex="4"/>

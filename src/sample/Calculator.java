@@ -32,29 +32,14 @@ public class Calculator {
                     a = (Number) element;
                     if (o != null) {
                         if (o.useOneArgument()) {
-                            c = o.calc(a);
-                            System.out.println(a.toString() + o.toString() + "=" + c.toString());
-                            System.out.println(c.getValue());
-                            equation.remove(i);
-                            equation.remove(i - 1);
-                            equation.add(i - 1, c);
-                            a = c;
-                            b = null;
+                            a = doOneSidedCalculation(a, o, i);
                             i--;
                         }
                     }
                 } else {
                     b = (Number) element;
                     if (o != null) {
-                        c = o.calc(a, b);
-                        System.out.println(a.toString() + o.toString() + b.toString() + "=" + c.toString());
-                        System.out.println(c.getValue());
-                        equation.remove(i);          //b
-                        equation.remove(i - 1); //o
-                        equation.remove(i - 2); //a
-                        equation.add(i - 2, c);
-                        a = c;
-                        b = null;
+                        a = doCalculation(a, b, o, i);
                         i -= 2;
                     } else {
                         System.out.println("Something went wrong. :(");
@@ -73,6 +58,33 @@ public class Calculator {
             System.out.println(this.toString());
         }
 
+    }
+
+    private Number doCalculation(Number a, Number b, Operator o, int i) {
+        Number c;
+        c = o.calc(a, b);
+        System.out.println(a.toString() + o.toString() + b.toString() + "=" + c.toString());
+        System.out.println(c.getValue());
+        equation.remove(i);            //b
+        equation.remove(i - 1); //o
+        equation.remove(i - 2); //a
+        equation.add(i - 2, c);
+        a = c;
+        b = null;
+        return a;
+    }
+
+    private Number doOneSidedCalculation(Number a, Operator o, int i) {
+        Number c;
+        Number b;
+        c = o.calc(a);
+        System.out.println(a.toString() + o.toString() + "=" + c.toString());
+        equation.remove(i);
+        equation.remove(i - 1);
+        equation.add(i - 1, c);
+        a = c;
+        b = null;
+        return a;
     }
 
     double getResult() {

@@ -60,7 +60,7 @@ public class Controller {
     @FXML
     JFXButton back_space;
     @FXML
-    JFXButton comma;
+    JFXButton decimal;
     @FXML
     JFXButton plusminus;
     @FXML
@@ -113,6 +113,7 @@ public class Controller {
         map.put(KeyCode.DIGIT7, numpad7);
         map.put(KeyCode.DIGIT8, numpad8);
         map.put(KeyCode.DIGIT9, numpad9);
+        map.put(KeyCode.DECIMAL, decimal);
     }
 
 
