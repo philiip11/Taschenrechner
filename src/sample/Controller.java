@@ -183,6 +183,7 @@ public class Controller {
                 break;
             case "=":
                 addNumber();
+                updateEquation();
                 calc();
                 break;
             case "C":

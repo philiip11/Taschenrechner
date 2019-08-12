@@ -47,8 +47,8 @@
                    GridPane.columnIndex="2" GridPane.rowIndex="7"/>
         <JFXButton fx:id="plusminus" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="±"
                    GridPane.columnIndex="1" GridPane.rowIndex="7"/>
-        <JFXButton mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text=","
-                   fx:id="comma" GridPane.columnIndex="3" GridPane.rowIndex="7"/>
+        <JFXButton fx:id="comma" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text=","
+                   GridPane.columnIndex="3" GridPane.rowIndex="7"/>
         <JFXButton fx:id="multiply" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="×"
                    GridPane.columnIndex="4" GridPane.rowIndex="4"/>
         <JFXButton fx:id="subtract" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="-"
@@ -65,22 +65,22 @@
                    GridPane.columnIndex="3" GridPane.rowIndex="3"/>
         <JFXButton fx:id="divide" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="÷"
                    GridPane.columnIndex="4" GridPane.rowIndex="3"/>
-        <JFXButton mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="\%"
-                   GridPane.rowIndex="3" fx:id="percent"/>
-        <JFXButton mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="√"
-                   GridPane.rowIndex="4" fx:id="sqrt"/>
-        <JFXButton mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="x²"
-                   GridPane.rowIndex="5" fx:id="square"/>
-        <JFXButton mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="x³"
-                   GridPane.rowIndex="6" fx:id="cube"/>
-        <JFXButton mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="⅟x"
-                   GridPane.rowIndex="7" fx:id="inverse"/>
+        <JFXButton fx:id="percent" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="\%"
+                   GridPane.rowIndex="3"/>
+        <JFXButton fx:id="sqrt" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="√"
+                   GridPane.rowIndex="4"/>
+        <JFXButton fx:id="square" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="x²"
+                   GridPane.rowIndex="5"/>
+        <JFXButton fx:id="cube" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="x³"
+                   GridPane.rowIndex="6"/>
+        <JFXButton fx:id="inverse" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="⅟x"
+                   GridPane.rowIndex="7"/>
         <JFXTextField fx:id="numbers" alignment="CENTER_RIGHT" onKeyPressed="#onKeyPressed"
                       onKeyReleased="#onKeyReleased" onKeyTyped="#onKeyTyped" prefWidth="550.0" styleClass="numbers"
                       GridPane.columnSpan="5" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
                       GridPane.rowIndex="2"/>
-        <Label minWidth="500.0" prefWidth="550.0" textAlignment="RIGHT" GridPane.columnSpan="5" GridPane.hgrow="ALWAYS"
-               fx:id="equation">
+        <Label fx:id="equation" minWidth="500.0" prefWidth="550.0" textAlignment="RIGHT" textFill="WHITE"
+               GridPane.columnSpan="5" GridPane.hgrow="ALWAYS">
             <font>
                 <Font size="24.0"/>
             </font>

@@ -1,9 +1,9 @@
 package sample;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 public class Calculator {
-    private LinkedList<EquationElement> equation = new LinkedList<>();
+    private ArrayList<EquationElement> equation = new ArrayList<>();
     private double result;
 
     void addElement(EquationElement element) {
@@ -14,6 +14,7 @@ public class Calculator {
     void clear() {
         equation.clear();
     }
+
     private void calc() {
         Number a = null;
         Number b;
@@ -21,7 +22,11 @@ public class Calculator {
         Operator o = null;
 
         //TODO do some more magic here
-        for (EquationElement element : equation) {
+
+        int i = 0;
+        while (i < equation.size()) {
+            System.out.println(this.toString());
+            EquationElement element = equation.get(i);
             if (element.isNumber()) {
                 if (a == null) {
                     a = (Number) element;
@@ -30,6 +35,12 @@ public class Calculator {
                             c = o.calc(a);
                             System.out.println(a.toString() + o.toString() + "=" + c.toString());
                             System.out.println(c.getValue());
+                            equation.remove(i);
+                            equation.remove(i - 1);
+                            equation.add(i - 1, c);
+                            a = c;
+                            b = null;
+                            i--;
                         }
                     }
                 } else {
@@ -38,6 +49,13 @@ public class Calculator {
                         c = o.calc(a, b);
                         System.out.println(a.toString() + o.toString() + b.toString() + "=" + c.toString());
                         System.out.println(c.getValue());
+                        equation.remove(i);          //b
+                        equation.remove(i - 1); //o
+                        equation.remove(i - 2); //a
+                        equation.add(i - 2, c);
+                        a = c;
+                        b = null;
+                        i -= 2;
                     } else {
                         System.out.println("Something went wrong. :(");
                     }
@@ -46,9 +64,15 @@ public class Calculator {
                 o = (Operator) element;
 
             }
+            i++;
+        }
+        if (equation.size() == 1) {
+            result = ((Number) equation.get(0)).getValue();
+        } else {
+            System.out.println("Multiple results!?");
+            System.out.println(this.toString());
         }
 
-        result = 0;
     }
 
     double getResult() {
