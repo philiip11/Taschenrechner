@@ -20,6 +20,7 @@ public class Main extends Application {
         JFXDecorator decorator = new JFXDecorator(primaryStage, root);
         decorator.setCustomMaximize(true);
         decorator.setGraphic(new SVGGlyph(""));
+
         Scene scene = new Scene(decorator, 600, 900, true, SceneAntialiasing.BALANCED);
         final ObservableList<String> stylesheets = scene.getStylesheets();
         stylesheets.addAll(getClass().getResource("/css/jfoenix-fonts.css").toExternalForm(),

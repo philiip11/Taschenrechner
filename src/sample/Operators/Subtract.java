@@ -4,7 +4,7 @@ import sample.Number;
 import sample.Operator;
 
 //TODO
-public class Substract extends Operator {
+public class Subtract extends Operator {
     @Override
     public Number calc(Number a, Number b) {
         return null;

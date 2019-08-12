@@ -4,22 +4,29 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import sample.Operators.Add;
+import sample.Operators.Divide;
+import sample.Operators.Multiply;
+import sample.Operators.Subtract;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Controller {
     @FXML
+    Label equation;
+    @FXML
     JFXTextField numbers;
 
     //TODO Refactor (Strg+F6) all buttons to lowercase
     @FXML
-    JFXButton ENTER;
+    JFXButton enter;
     @FXML
     JFXButton NUMPAD0;
     @FXML
@@ -54,19 +61,33 @@ public class Controller {
     JFXButton DELETE;
     @FXML
     JFXButton BACK_SPACE;
+    @FXML
+    JFXButton comma;
+    @FXML
+    JFXButton plusminus;
+    @FXML
+    JFXButton percent;
+    @FXML
+    JFXButton sqrt;
+    @FXML
+    JFXButton square;
+    @FXML
+    JFXButton cube;
+    @FXML
+    JFXButton inverse;
 
     private Map<KeyCode, JFXButton> map = new HashMap<>();
 
     private ScriptEngine scriptEngine;
-    private Calculator calculator;
-
+    private Calculator calculator = new Calculator();
+    DecimalFormat decimalFormat = new DecimalFormat("#.###");
 
     public void initialize() {
         //TODO Use Calculator Class
         ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
         scriptEngine = scriptEngineManager.getEngineByName("js");
 
-        map.put(KeyCode.ENTER, ENTER);
+        map.put(KeyCode.ENTER, enter);
         map.put(KeyCode.NUMPAD0, NUMPAD0);
         map.put(KeyCode.NUMPAD1, NUMPAD1);
         map.put(KeyCode.NUMPAD2, NUMPAD2);
@@ -95,6 +116,7 @@ public class Controller {
         map.put(KeyCode.DIGIT7, NUMPAD7);
         map.put(KeyCode.DIGIT8, NUMPAD8);
         map.put(KeyCode.DIGIT9, NUMPAD9);
+        map.put(KeyCode.COMMA, comma);
     }
 
 
@@ -118,8 +140,10 @@ public class Controller {
 
     private void calc() {
 
+        numbers.setText(decimalFormat.format(calculator.getResult()));
+
         //TODO Use Calculator Class
-        try {
+        /*try {
             String eval = numbers.getText();
             eval = eval.replace("÷", "/");
             eval = eval.replace("×", "*");
@@ -129,7 +153,7 @@ public class Controller {
         } catch (ScriptException e) {
             numbers.setText("ERROR");
             e.printStackTrace();
-        }
+        }*/
     }
 
     public void buttonClick(ActionEvent actionEvent) {
@@ -146,19 +170,55 @@ public class Controller {
             case "7":
             case "8":
             case "9":
-            case "+":
-            case "-":
-            case "×":
-            case "÷":
+            case ",":
                 numbers.setText(numbers.getText() + input);
                 break;
+            case "+":
+                addOperator(new Add());
+                break;
+            case "-":
+                addOperator(new Subtract());
+                break;
+            case "×":
+                addOperator(new Multiply());
+                break;
+            case "÷":
+                addOperator(new Divide());
+                break;
             case "=":
+                addNumber();
                 calc();
                 break;
             case "C":
+                calculator.clear();
+                updateEquation();
+
+            case "CE":
                 numbers.setText("");
                 break;
         }
+    }
+
+    private void addOperator(Operator op) {
+        addNumber();
+        calculator.addElement(op);
+        updateEquation();
+    }
+
+    private void addNumber() {
+        Number n = new Number(Double.parseDouble(numbers.getText().replace(",", ".")));
+        numbers.setText("");
+        calculator.addElement(n);
+    }
+
+    private void addNumber(double d) {
+        Number n = new Number(d);
+        calculator.addElement(n);
+        updateEquation();
+    }
+
+    private void updateEquation() {
+        equation.setText(calculator.toString());
     }
 
     public void onKeyTyped(KeyEvent keyEvent) {

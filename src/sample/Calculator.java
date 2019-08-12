@@ -15,6 +15,9 @@ public class Calculator {
     }
 
 
+    public void clear() {
+        equation.clear();
+    }
     private void calc() {
         Number a = null;
         Number b = null;
@@ -57,4 +60,11 @@ public class Calculator {
         return result;
     }
 
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        for (EquationElement element : equation) {
+            result.append(element.toString()).append(" ");
+        }
+        return result.toString().trim();
+    }
 }

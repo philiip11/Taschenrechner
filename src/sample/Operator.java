@@ -10,8 +10,6 @@ public abstract class Operator extends EquationElement {
         return false;
     }
 
-    ;
-
     private Number a;
     private Number b;
 
@@ -25,7 +23,6 @@ public abstract class Operator extends EquationElement {
         this.a = a;
         this.b = b;
     }
-
 
 
 }

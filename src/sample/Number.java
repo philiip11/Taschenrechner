@@ -1,12 +1,15 @@
 package sample;
 
+import java.text.DecimalFormat;
+
 public class Number extends EquationElement {
 
+    DecimalFormat decimalFormat = new DecimalFormat("#.###");
     private double value;
 
     @Override
     public String toString() {
-        return String.valueOf(value);
+        return decimalFormat.format(value);
     }
 
     @Override
