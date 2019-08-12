@@ -17,6 +17,7 @@ public class Controller {
     @FXML
     JFXTextField numbers;
 
+    //TODO Refactor (Strg+F6) all buttons to lowercase
     @FXML
     JFXButton ENTER;
     @FXML
@@ -54,13 +55,15 @@ public class Controller {
     @FXML
     JFXButton BACK_SPACE;
 
-    private Map<KeyCode, JFXButton> map = new HashMap<KeyCode, JFXButton>();
+    private Map<KeyCode, JFXButton> map = new HashMap<>();
 
-    private ScriptEngineManager scriptEngineManager;
     private ScriptEngine scriptEngine;
+    private Calculator calculator;
+
 
     public void initialize() {
-        scriptEngineManager = new ScriptEngineManager();
+        //TODO Use Calculator Class
+        ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
         scriptEngine = scriptEngineManager.getEngineByName("js");
 
         map.put(KeyCode.ENTER, ENTER);
@@ -81,7 +84,6 @@ public class Controller {
         map.put(KeyCode.ESCAPE, ESCAPE);
         map.put(KeyCode.DELETE, DELETE);
         map.put(KeyCode.BACK_SPACE, BACK_SPACE);
-
     }
 
 
@@ -104,6 +106,8 @@ public class Controller {
     }
 
     private void calc() {
+
+        //TODO Use Calculator Class
         try {
             String eval = numbers.getText();
             eval = eval.replace("÷", "/");
@@ -119,6 +123,7 @@ public class Controller {
 
     public void buttonClick(ActionEvent actionEvent) {
         String input = ((JFXButton) actionEvent.getSource()).getText();
+        //TODO Use Calculator Class
         switch (input) {
             case "0":
             case "1":
