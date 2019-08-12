@@ -7,11 +7,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyEvent;
 import sample.Operators.Add;
 import sample.Operators.Divide;
 import sample.Operators.Multiply;
 import sample.Operators.Subtract;
+
 
 import java.text.DecimalFormat;
 import java.util.HashMap;
@@ -22,7 +24,6 @@ public class Controller {
     Label equation;
     @FXML
     JFXTextField numbers;
-
     //DONE Refactor (Shift+F6) all buttons to lowercase
     @FXML
     JFXButton enter;
@@ -74,12 +75,12 @@ public class Controller {
     JFXButton cube;
     @FXML
     JFXButton inverse;
-
     private Map<KeyCode, JFXButton> map = new HashMap<>();
-
     //private ScriptEngine scriptEngine;
     private Calculator calculator = new Calculator();
     private DecimalFormat decimalFormat = new DecimalFormat("#.########");
+    private final KeyCodeCombination operator_add = new KeyCodeCombination(KeyCode.DIGIT7, KeyCodeCombination.SHIFT_DOWN);
+
 
     public void initialize() {
         //TODO Use Calculator Class
@@ -98,6 +99,7 @@ public class Controller {
         map.put(KeyCode.NUMPAD8, numpad8);
         map.put(KeyCode.NUMPAD9, numpad9);
         map.put(KeyCode.ADD, add);
+        //map.put(operator_add, add);                 //TODO multiple keys on action
         map.put(KeyCode.SUBTRACT, subtract);
         map.put(KeyCode.MULTIPLY, multiply);
         map.put(KeyCode.DIVIDE, divide);
