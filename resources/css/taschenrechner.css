@@ -1,0 +1,23 @@
+.numberButton {
+    -fx-background-color: #111111;
+    -fx-text-fill: white;
+    -fx-font-size: 42px;
+    -fx-pref-width: 100px;
+    -fx-pref-height: 100px;
+    -jfx-button-type: RAISED;
+}
+
+.otherButton {
+    -fx-background-color: #333333;
+    -fx-text-fill: white;
+    -fx-font-size: 36px;
+    -fx-pref-width: 100px;
+    -fx-pref-height: 100px;
+}
+
+.numbers {
+    -fx-text-fill: white;
+    -fx-font-size: 42px;
+    -jfx-focus-color: blue;
+    -fx-min-width: 500px;
+}
