@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/JavaFxApplication.iml" filepath="$PROJECT_DIR$/JavaFxApplication.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Taschenrechner.iml" filepath="$PROJECT_DIR$/Taschenrechner.iml" />
+      <module fileurl="file://$PROJECT_DIR$/taschenrechner/taschenrechner.iml" filepath="$PROJECT_DIR$/taschenrechner/taschenrechner.iml" />
     </modules>
   </component>
 </project>
-
