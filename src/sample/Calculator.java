@@ -16,8 +16,37 @@ public class Calculator {
 
 
     private void calc() {
-        for (EquationElement element : equation) {
-            //TODO do some magic here
+        Number a = null;
+        Number b = null;
+        Number c = null;
+        Operator o = null;
+        //TODO do some magic here
+        for (int i = 0; i < equation.size(); i++) {
+            EquationElement element = equation.get(i);
+            if (element.isNumber()) {
+                if (a == null) {
+                    a = (Number) element;
+                    if (o != null) {
+                        if (o.useOneArgument()) {
+                            c = o.calc(a);
+                            System.out.println(a.toString() + o.toString() + "=" + c.toString());
+                            System.out.println(c.getValue());
+                        }
+                    }
+                } else {
+                    b = (Number) element;
+                    if (o != null) {
+                        c = o.calc(a, b);
+                        System.out.println(a.toString() + o.toString() + b.toString() + "=" + c.toString());
+                        System.out.println(c.getValue());
+                    } else {
+                        System.out.println("Something went wrong. :(");
+                    }
+                }
+            } else {
+                o = (Operator) element;
+
+            }
         }
 
         result = 0;
