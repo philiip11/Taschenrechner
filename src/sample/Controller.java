@@ -103,7 +103,6 @@ public class Controller {
         map.put(KeyCode.ESCAPE, escape);
         map.put(KeyCode.DELETE, delete);
         map.put(KeyCode.BACK_SPACE, back_space);
-        map.put(KeyCode.SOFTKEY_5, back_space);
         map.put(KeyCode.DIGIT0, numpad0);
         map.put(KeyCode.DIGIT1, numpad1);
         map.put(KeyCode.DIGIT2, numpad2);

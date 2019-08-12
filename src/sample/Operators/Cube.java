@@ -3,20 +3,24 @@ package sample.Operators;
 import sample.Number;
 import sample.Operator;
 
-//TODO
 public class Cube extends Operator {
     @Override
     public Number calc(Number a, Number b) {
-        return null;
+        return calc(a);
     }
 
     @Override
     public Number calc(Number a) {
-        return null;
+        return new Number(Math.pow(a.getValue(), 3));
+    }
+
+    @Override
+    public boolean useOneArgument() {
+        return true;
     }
 
     @Override
     public String toString() {
-        return "²";
+        return "³";
     }
 }
