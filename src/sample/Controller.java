@@ -95,7 +95,6 @@ public class Controller {
         map.put(KeyCode.DIGIT7, NUMPAD7);
         map.put(KeyCode.DIGIT8, NUMPAD8);
         map.put(KeyCode.DIGIT9, NUMPAD9);
-
     }
 
 
