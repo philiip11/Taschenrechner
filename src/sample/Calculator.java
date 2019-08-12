@@ -1,31 +1,27 @@
 package sample;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Calculator {
-    private ArrayList<EquationElement> equation;
+    private LinkedList<EquationElement> equation = new LinkedList<>();
     private double result;
 
-    public Calculator() {
-        equation = new ArrayList<>();
-    }
-
-    public void addElement(EquationElement element) {
+    void addElement(EquationElement element) {
         equation.add(element);
     }
 
 
-    public void clear() {
+    void clear() {
         equation.clear();
     }
     private void calc() {
         Number a = null;
-        Number b = null;
-        Number c = null;
+        Number b;
+        Number c;
         Operator o = null;
-        //TODO do some magic here
-        for (int i = 0; i < equation.size(); i++) {
-            EquationElement element = equation.get(i);
+
+        //TODO do some more magic here
+        for (EquationElement element : equation) {
             if (element.isNumber()) {
                 if (a == null) {
                     a = (Number) element;
@@ -55,7 +51,7 @@ public class Calculator {
         result = 0;
     }
 
-    public double getResult() {
+    double getResult() {
         calc();
         return result;
     }

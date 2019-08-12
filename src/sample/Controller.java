@@ -12,8 +12,6 @@ import sample.Operators.Divide;
 import sample.Operators.Multiply;
 import sample.Operators.Subtract;
 
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,7 +22,7 @@ public class Controller {
     @FXML
     JFXTextField numbers;
 
-    //TODO Refactor (Shift+F6) all buttons to lowercase
+    //DONE Refactor (Shift+F6) all buttons to lowercase
     @FXML
     JFXButton enter;
     @FXML
@@ -78,14 +76,14 @@ public class Controller {
 
     private Map<KeyCode, JFXButton> map = new HashMap<>();
 
-    private ScriptEngine scriptEngine;
+    //private ScriptEngine scriptEngine;
     private Calculator calculator = new Calculator();
-    DecimalFormat decimalFormat = new DecimalFormat("#.###");
+    private DecimalFormat decimalFormat = new DecimalFormat("#.###");
 
     public void initialize() {
         //TODO Use Calculator Class
-        ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
-        scriptEngine = scriptEngineManager.getEngineByName("js");
+        //ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
+        //scriptEngine = scriptEngineManager.getEngineByName("js");
 
         map.put(KeyCode.ENTER, enter);
         map.put(KeyCode.NUMPAD0, numpad0);
