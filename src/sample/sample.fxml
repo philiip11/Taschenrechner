@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
 <GridPane alignment="center" hgap="10" minHeight="900.0" minWidth="600.0" style="-fx-background-color: #444444;"
           vgap="10" xmlns="http://javafx.com/javafx/8.0.192" xmlns:fx="http://javafx.com/fxml/1"
           fx:controller="sample.Controller">
@@ -19,60 +21,68 @@
         <RowConstraints/>
         <RowConstraints/>
         <RowConstraints/>
+        <RowConstraints/>
+        <RowConstraints/>
     </rowConstraints>
     <children>
-        <JFXButton mnemonicParsing="false" onAction="#buttonClick" styleClass="numberButton" text="7"
-                   GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-        <JFXButton mnemonicParsing="false" onAction="#buttonClick" styleClass="numberButton" text="8"
-                   GridPane.columnIndex="2" GridPane.rowIndex="2"/>
-        <JFXButton mnemonicParsing="false" onAction="#buttonClick" styleClass="numberButton" text="9"
-                   GridPane.columnIndex="3" GridPane.rowIndex="2"/>
-        <JFXButton mnemonicParsing="false" onAction="#buttonClick" styleClass="numberButton" text="4"
-                   GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-        <JFXButton mnemonicParsing="false" onAction="#buttonClick" styleClass="numberButton" text="5"
-                   GridPane.columnIndex="2" GridPane.rowIndex="3"/>
-        <JFXButton mnemonicParsing="false" onAction="#buttonClick" styleClass="numberButton" text="6"
-                   GridPane.columnIndex="3" GridPane.rowIndex="3"/>
-        <JFXButton mnemonicParsing="false" onAction="#buttonClick" styleClass="numberButton" text="1"
+        <JFXButton fx:id="NUMPAD7" mnemonicParsing="false" onAction="#buttonClick" styleClass="numberButton" text="7"
                    GridPane.columnIndex="1" GridPane.rowIndex="4"/>
-        <JFXButton mnemonicParsing="false" onAction="#buttonClick" styleClass="numberButton" text="2"
+        <JFXButton fx:id="NUMPAD8" mnemonicParsing="false" onAction="#buttonClick" styleClass="numberButton" text="8"
                    GridPane.columnIndex="2" GridPane.rowIndex="4"/>
-        <JFXButton mnemonicParsing="false" onAction="#buttonClick" styleClass="numberButton" text="3"
+        <JFXButton fx:id="NUMPAD9" mnemonicParsing="false" onAction="#buttonClick" styleClass="numberButton" text="9"
                    GridPane.columnIndex="3" GridPane.rowIndex="4"/>
-        <JFXButton mnemonicParsing="false" onAction="#buttonClick" styleClass="numberButton" text="0"
-                   GridPane.columnIndex="2" GridPane.rowIndex="5"/>
-        <JFXButton mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="±"
+        <JFXButton fx:id="NUMPAD4" mnemonicParsing="false" onAction="#buttonClick" styleClass="numberButton" text="4"
                    GridPane.columnIndex="1" GridPane.rowIndex="5"/>
-        <JFXButton mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text=","
+        <JFXButton fx:id="NUMPAD5" mnemonicParsing="false" onAction="#buttonClick" styleClass="numberButton" text="5"
+                   GridPane.columnIndex="2" GridPane.rowIndex="5"/>
+        <JFXButton fx:id="NUMPAD6" mnemonicParsing="false" onAction="#buttonClick" styleClass="numberButton" text="6"
                    GridPane.columnIndex="3" GridPane.rowIndex="5"/>
-        <JFXButton mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="×"
-                   GridPane.columnIndex="4" GridPane.rowIndex="2"/>
-        <JFXButton mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="-"
-                   GridPane.columnIndex="4" GridPane.rowIndex="3"/>
-        <JFXButton mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="+"
+        <JFXButton fx:id="NUMPAD1" mnemonicParsing="false" onAction="#buttonClick" styleClass="numberButton" text="1"
+                   GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+        <JFXButton fx:id="NUMPAD2" mnemonicParsing="false" onAction="#buttonClick" styleClass="numberButton" text="2"
+                   GridPane.columnIndex="2" GridPane.rowIndex="6"/>
+        <JFXButton fx:id="NUMPAD3" mnemonicParsing="false" onAction="#buttonClick" styleClass="numberButton" text="3"
+                   GridPane.columnIndex="3" GridPane.rowIndex="6"/>
+        <JFXButton fx:id="NUMPAD0" mnemonicParsing="false" onAction="#buttonClick" styleClass="numberButton" text="0"
+                   GridPane.columnIndex="2" GridPane.rowIndex="7"/>
+        <JFXButton mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="±"
+                   GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+        <JFXButton mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text=","
+                   GridPane.columnIndex="3" GridPane.rowIndex="7"/>
+        <JFXButton fx:id="MULTIPLY" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="×"
                    GridPane.columnIndex="4" GridPane.rowIndex="4"/>
-        <JFXButton mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="="
+        <JFXButton fx:id="SUBTRACT" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="-"
                    GridPane.columnIndex="4" GridPane.rowIndex="5"/>
-        <JFXButton mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="CE"
-                   GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-        <JFXButton mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="C"
-                   GridPane.columnIndex="2" GridPane.rowIndex="1"/>
-        <JFXButton mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="⌫"
-                   GridPane.columnIndex="3" GridPane.rowIndex="1"/>
-        <JFXButton mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="÷"
-                   GridPane.columnIndex="4" GridPane.rowIndex="1"/>
+        <JFXButton fx:id="ADD" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="+"
+                   GridPane.columnIndex="4" GridPane.rowIndex="6"/>
+        <JFXButton fx:id="ENTER" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="="
+                   GridPane.columnIndex="4" GridPane.rowIndex="7"/>
+        <JFXButton fx:id="DELETE" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="CE"
+                   GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+        <JFXButton fx:id="ESCAPE" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="C"
+                   GridPane.columnIndex="2" GridPane.rowIndex="3"/>
+        <JFXButton fx:id="BACK_SPACE" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="⌫"
+                   GridPane.columnIndex="3" GridPane.rowIndex="3"/>
+        <JFXButton fx:id="DIVIDE" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="÷"
+                   GridPane.columnIndex="4" GridPane.rowIndex="3"/>
         <JFXButton mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="\%"
-                   GridPane.rowIndex="1"/>
-        <JFXButton mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="√"
-                   GridPane.rowIndex="2"/>
-        <JFXButton mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="x²"
                    GridPane.rowIndex="3"/>
-        <JFXButton mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="x³"
+        <JFXButton mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="√"
                    GridPane.rowIndex="4"/>
-        <JFXButton mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="⅟x"
+        <JFXButton mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="x²"
                    GridPane.rowIndex="5"/>
-        <JFXTextField fx:id="numbers" alignment="CENTER_RIGHT" onKeyReleased="#onKeyReleased" prefWidth="550.0"
-                      styleClass="numbers" GridPane.columnSpan="5" GridPane.halignment="CENTER"
-                      GridPane.hgrow="ALWAYS"/>
+        <JFXButton mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="x³"
+                   GridPane.rowIndex="6"/>
+        <JFXButton mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="⅟x"
+                   GridPane.rowIndex="7"/>
+        <JFXTextField fx:id="numbers" alignment="CENTER_RIGHT" onKeyPressed="#onKeyPressed"
+                      onKeyReleased="#onKeyReleased" onKeyTyped="#onKeyTyped" prefWidth="550.0" styleClass="numbers"
+                      GridPane.columnSpan="5" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
+                      GridPane.rowIndex="2"/>
+        <Label minWidth="500.0" prefWidth="550.0" textAlignment="RIGHT" GridPane.columnSpan="5" GridPane.hgrow="ALWAYS">
+            <font>
+                <Font size="24.0"/>
+            </font>
+        </Label>
     </children>
 </GridPane>
