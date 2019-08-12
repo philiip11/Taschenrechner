@@ -5,6 +5,7 @@ import sample.Operator;
 
 //TODO
 public class Percentage extends Operator {
+    private int priority = 2;
     @Override
     public Number calc(Number a, Number b) {
         return null;

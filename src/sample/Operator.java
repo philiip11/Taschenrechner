@@ -10,8 +10,11 @@ public abstract class Operator extends EquationElement {
         return false;
     }
 
-    private Number a;
-    private Number b;
+    public int getPriority() {
+        return priority;
+    }
+
+    private int priority;
 
 
     @Override
@@ -19,10 +22,6 @@ public abstract class Operator extends EquationElement {
         return false;
     }
 
-    public void setNumbers(Number a, Number b) {
-        this.a = a;
-        this.b = b;
-    }
 
 
 }

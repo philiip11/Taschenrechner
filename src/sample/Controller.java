@@ -2,6 +2,7 @@ package sample;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -114,6 +115,8 @@ public class Controller {
         map.put(KeyCode.DIGIT8, numpad8);
         map.put(KeyCode.DIGIT9, numpad9);
         map.put(KeyCode.DECIMAL, decimal);
+
+        Platform.runLater(() -> numbers.requestFocus());
     }
 
 
@@ -155,7 +158,6 @@ public class Controller {
 
     public void buttonClick(ActionEvent actionEvent) {
         String input = ((JFXButton) actionEvent.getSource()).getText();
-        //TODO Use Calculator Class
         switch (input) {
             case "0":
             case "1":
@@ -193,6 +195,11 @@ public class Controller {
 
             case "CE":
                 numbers.setText("");
+                break;
+            case "⌫":
+                if (numbers.getLength() > 0) {
+                    numbers.setText(numbers.getText(0, numbers.getLength() - 1));
+                }
                 break;
         }
     }
