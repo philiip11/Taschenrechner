@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -15,6 +16,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("Taschenrechner");
+        primaryStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/icon.png")));
         JFXDecorator decorator = new JFXDecorator(primaryStage, root);
         decorator.setCustomMaximize(true);
         decorator.setGraphic(new SVGGlyph(""));

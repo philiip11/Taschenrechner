@@ -85,6 +85,17 @@ public class Controller {
         map.put(KeyCode.DELETE, DELETE);
         map.put(KeyCode.BACK_SPACE, BACK_SPACE);
         map.put(KeyCode.SOFTKEY_5, BACK_SPACE);
+        map.put(KeyCode.DIGIT0, NUMPAD0);
+        map.put(KeyCode.DIGIT1, NUMPAD1);
+        map.put(KeyCode.DIGIT2, NUMPAD2);
+        map.put(KeyCode.DIGIT3, NUMPAD3);
+        map.put(KeyCode.DIGIT4, NUMPAD4);
+        map.put(KeyCode.DIGIT5, NUMPAD5);
+        map.put(KeyCode.DIGIT6, NUMPAD6);
+        map.put(KeyCode.DIGIT7, NUMPAD7);
+        map.put(KeyCode.DIGIT8, NUMPAD8);
+        map.put(KeyCode.DIGIT9, NUMPAD9);
+
     }
 
 
