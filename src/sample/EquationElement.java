@@ -1,4 +1,6 @@
 package sample;
 
-public class EquationElement {
+public abstract class EquationElement {
+
+    public abstract String toString();
 }

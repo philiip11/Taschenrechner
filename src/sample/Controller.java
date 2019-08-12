@@ -84,6 +84,7 @@ public class Controller {
         map.put(KeyCode.ESCAPE, ESCAPE);
         map.put(KeyCode.DELETE, DELETE);
         map.put(KeyCode.BACK_SPACE, BACK_SPACE);
+        map.put(KeyCode.SOFTKEY_5, BACK_SPACE);
     }
 
 
