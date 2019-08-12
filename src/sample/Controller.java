@@ -24,43 +24,43 @@ public class Controller {
     @FXML
     JFXTextField numbers;
 
-    //TODO Refactor (Strg+F6) all buttons to lowercase
+    //TODO Refactor (Shift+F6) all buttons to lowercase
     @FXML
     JFXButton enter;
     @FXML
-    JFXButton NUMPAD0;
+    JFXButton numpad0;
     @FXML
-    JFXButton NUMPAD1;
+    JFXButton numpad1;
     @FXML
-    JFXButton NUMPAD2;
+    JFXButton numpad2;
     @FXML
-    JFXButton NUMPAD3;
+    JFXButton numpad3;
     @FXML
-    JFXButton NUMPAD4;
+    JFXButton numpad4;
     @FXML
-    JFXButton NUMPAD5;
+    JFXButton numpad5;
     @FXML
-    JFXButton NUMPAD6;
+    JFXButton numpad6;
     @FXML
-    JFXButton NUMPAD7;
+    JFXButton numpad7;
     @FXML
-    JFXButton NUMPAD8;
+    JFXButton numpad8;
     @FXML
-    JFXButton NUMPAD9;
+    JFXButton numpad9;
     @FXML
-    JFXButton ADD;
+    JFXButton add;
     @FXML
-    JFXButton SUBTRACT;
+    JFXButton subtract;
     @FXML
-    JFXButton MULTIPLY;
+    JFXButton multiply;
     @FXML
-    JFXButton DIVIDE;
+    JFXButton divide;
     @FXML
-    JFXButton ESCAPE;
+    JFXButton escape;
     @FXML
-    JFXButton DELETE;
+    JFXButton delete;
     @FXML
-    JFXButton BACK_SPACE;
+    JFXButton back_space;
     @FXML
     JFXButton comma;
     @FXML
@@ -88,35 +88,34 @@ public class Controller {
         scriptEngine = scriptEngineManager.getEngineByName("js");
 
         map.put(KeyCode.ENTER, enter);
-        map.put(KeyCode.NUMPAD0, NUMPAD0);
-        map.put(KeyCode.NUMPAD1, NUMPAD1);
-        map.put(KeyCode.NUMPAD2, NUMPAD2);
-        map.put(KeyCode.NUMPAD3, NUMPAD3);
-        map.put(KeyCode.NUMPAD4, NUMPAD4);
-        map.put(KeyCode.NUMPAD5, NUMPAD5);
-        map.put(KeyCode.NUMPAD6, NUMPAD6);
-        map.put(KeyCode.NUMPAD7, NUMPAD7);
-        map.put(KeyCode.NUMPAD8, NUMPAD8);
-        map.put(KeyCode.NUMPAD9, NUMPAD9);
-        map.put(KeyCode.ADD, ADD);
-        map.put(KeyCode.SUBTRACT, SUBTRACT);
-        map.put(KeyCode.MULTIPLY, MULTIPLY);
-        map.put(KeyCode.DIVIDE, DIVIDE);
-        map.put(KeyCode.ESCAPE, ESCAPE);
-        map.put(KeyCode.DELETE, DELETE);
-        map.put(KeyCode.BACK_SPACE, BACK_SPACE);
-        map.put(KeyCode.SOFTKEY_5, BACK_SPACE);
-        map.put(KeyCode.DIGIT0, NUMPAD0);
-        map.put(KeyCode.DIGIT1, NUMPAD1);
-        map.put(KeyCode.DIGIT2, NUMPAD2);
-        map.put(KeyCode.DIGIT3, NUMPAD3);
-        map.put(KeyCode.DIGIT4, NUMPAD4);
-        map.put(KeyCode.DIGIT5, NUMPAD5);
-        map.put(KeyCode.DIGIT6, NUMPAD6);
-        map.put(KeyCode.DIGIT7, NUMPAD7);
-        map.put(KeyCode.DIGIT8, NUMPAD8);
-        map.put(KeyCode.DIGIT9, NUMPAD9);
-        map.put(KeyCode.COMMA, comma);
+        map.put(KeyCode.NUMPAD0, numpad0);
+        map.put(KeyCode.NUMPAD1, numpad1);
+        map.put(KeyCode.NUMPAD2, numpad2);
+        map.put(KeyCode.NUMPAD3, numpad3);
+        map.put(KeyCode.NUMPAD4, numpad4);
+        map.put(KeyCode.NUMPAD5, numpad5);
+        map.put(KeyCode.NUMPAD6, numpad6);
+        map.put(KeyCode.NUMPAD7, numpad7);
+        map.put(KeyCode.NUMPAD8, numpad8);
+        map.put(KeyCode.NUMPAD9, numpad9);
+        map.put(KeyCode.ADD, add);
+        map.put(KeyCode.SUBTRACT, subtract);
+        map.put(KeyCode.MULTIPLY, multiply);
+        map.put(KeyCode.DIVIDE, divide);
+        map.put(KeyCode.ESCAPE, escape);
+        map.put(KeyCode.DELETE, delete);
+        map.put(KeyCode.BACK_SPACE, back_space);
+        map.put(KeyCode.SOFTKEY_5, back_space);
+        map.put(KeyCode.DIGIT0, numpad0);
+        map.put(KeyCode.DIGIT1, numpad1);
+        map.put(KeyCode.DIGIT2, numpad2);
+        map.put(KeyCode.DIGIT3, numpad3);
+        map.put(KeyCode.DIGIT4, numpad4);
+        map.put(KeyCode.DIGIT5, numpad5);
+        map.put(KeyCode.DIGIT6, numpad6);
+        map.put(KeyCode.DIGIT7, numpad7);
+        map.put(KeyCode.DIGIT8, numpad8);
+        map.put(KeyCode.DIGIT9, numpad9);
     }
 
 
