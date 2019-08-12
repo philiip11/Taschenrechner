@@ -78,7 +78,7 @@ public class Controller {
 
     //private ScriptEngine scriptEngine;
     private Calculator calculator = new Calculator();
-    private DecimalFormat decimalFormat = new DecimalFormat("#.###");
+    private DecimalFormat decimalFormat = new DecimalFormat("#.########");
 
     public void initialize() {
         //TODO Use Calculator Class
@@ -204,9 +204,11 @@ public class Controller {
     }
 
     private void addNumber() {
-        Number n = new Number(Double.parseDouble(numbers.getText().replace(",", ".")));
-        numbers.setText("");
-        calculator.addElement(n);
+        if (!numbers.getText().isEmpty()) {
+            Number n = new Number(Double.parseDouble(numbers.getText().replace(",", ".")));
+            numbers.setText("");
+            calculator.addElement(n);
+        }
     }
 
     private void addNumber(double d) {
