@@ -9,11 +9,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
+
+import static javafx.scene.input.KeyCombination.CONTROL_DOWN;
 
 public class Controller {
     @FXML
@@ -88,12 +91,6 @@ public class Controller {
         //TODO Use Calculator Class
 
         //with shift pressed
-        shiftComboMap.put(KeyCode.DIGIT7, divide);
-        shiftComboMap.put(KeyCode.PLUS, multiply);
-
-
-
-
         //ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
         //scriptEngine = scriptEngineManager.getEngineByName("js");
         map.put(KeyCode.ENTER, enter);
@@ -129,12 +126,37 @@ public class Controller {
         map.put(KeyCode.DIGIT9, numpad9);
         map.put(KeyCode.DECIMAL, decimal);
 
+
+        shiftComboMap.put(KeyCode.DIGIT7, divide);
+        shiftComboMap.put(KeyCode.PLUS, multiply);
+
+
         //TODO change to keyCombination
         map.put(KeyCode.K, bracketOpen);
         map.put(KeyCode.L, bracketClose);
 
         Platform.runLater(() -> numbers.requestFocus());
     }
+
+//    public static void findAndExecuteKey(KeyEvent event){
+//
+//        KeyCode keyCode = event.getCode();
+//        JFXButton jfxb = shiftComboMap.get(keyCode);
+//        //if exist fires corresponding button
+//        if(jfxb !=null){
+//            KeyCodeCombination combination = new KeyCodeCombination(keyCode,CONTROL_DOWN);
+//            if (combination.match(event)){
+//                jfxb = shiftComboMap.get(keyCode);
+//               jfxb.fire();
+//            }
+//        }
+//
+//
+//
+//    }
+
+
+
 
 
     public void onKeyPressed(KeyEvent keyEvent) {
@@ -277,5 +299,18 @@ public class Controller {
 
     public void onKeyTyped(KeyEvent keyEvent) {
         keyEvent.consume();
+    }
+
+    public void findAndExecuteKey(KeyEvent keyEvent) {
+        KeyCode keyCode = keyEvent.getCode();
+        JFXButton jfxb = shiftComboMap.get(keyCode);
+        //if exist fires corresponding button
+        if(jfxb !=null){
+            KeyCodeCombination combination = new KeyCodeCombination(keyCode,CONTROL_DOWN);
+            if (combination.match(keyEvent)){
+                jfxb = shiftComboMap.get(keyCode);
+                jfxb.fire();
+            }
+        }
     }
 }
