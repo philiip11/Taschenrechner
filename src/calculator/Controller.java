@@ -89,36 +89,37 @@ public class Controller {
         //scriptEngine = scriptEngineManager.getEngineByName("js");
 
         map.put(KeyCode.ENTER, enter);
-        map.put(KeyCode.NUMPAD0, numpad0);
-        map.put(KeyCode.NUMPAD1, numpad1);
-        map.put(KeyCode.NUMPAD2, numpad2);
-        map.put(KeyCode.NUMPAD3, numpad3);
-        map.put(KeyCode.NUMPAD4, numpad4);
-        map.put(KeyCode.NUMPAD5, numpad5);
-        map.put(KeyCode.NUMPAD6, numpad6);
-        map.put(KeyCode.NUMPAD7, numpad7);
-        map.put(KeyCode.NUMPAD8, numpad8);
-        map.put(KeyCode.NUMPAD9, numpad9);
-        map.put(KeyCode.ADD, add);
-        map.put(KeyCode.PLUS, add);
-        map.put(KeyCode.SUBTRACT, subtract);
-        map.put(KeyCode.MINUS, subtract);
-        map.put(KeyCode.MULTIPLY, multiply);
-        map.put(KeyCode.DIVIDE, divide);
+        map.put(KeyCode.NUMPAD0, numpad0);      //numpad
+        map.put(KeyCode.NUMPAD1, numpad1);      //numpad
+        map.put(KeyCode.NUMPAD2, numpad2);      //numpad
+        map.put(KeyCode.NUMPAD3, numpad3);      //numpad
+        map.put(KeyCode.NUMPAD4, numpad4);      //numpad
+        map.put(KeyCode.NUMPAD5, numpad5);      //numpad
+        map.put(KeyCode.NUMPAD6, numpad6);      //numpad
+        map.put(KeyCode.NUMPAD7, numpad7);      //numpad
+        map.put(KeyCode.NUMPAD8, numpad8);      //numpad
+        map.put(KeyCode.NUMPAD9, numpad9);      //numpad
+        map.put(KeyCode.ADD, add);              //numpad +
+        map.put(KeyCode.PLUS, add);             //keyboard +
+        map.put(KeyCode.SUBTRACT, subtract);    //numpad -
+        map.put(KeyCode.MINUS, subtract);       //keyboard -
+        map.put(KeyCode.MULTIPLY, multiply);    //numpad *
+        map.put(KeyCode.DIVIDE, divide);        //numpad /
         map.put(KeyCode.ESCAPE, escape);
         map.put(KeyCode.DELETE, delete);
         map.put(KeyCode.BACK_SPACE, back_space);
-        map.put(KeyCode.DIGIT0, numpad0);
-        map.put(KeyCode.DIGIT1, numpad1);
-        map.put(KeyCode.DIGIT2, numpad2);
-        map.put(KeyCode.DIGIT3, numpad3);
-        map.put(KeyCode.DIGIT4, numpad4);
-        map.put(KeyCode.DIGIT5, numpad5);
-        map.put(KeyCode.DIGIT6, numpad6);
-        map.put(KeyCode.DIGIT7, numpad7);
-        map.put(KeyCode.DIGIT8, numpad8);
-        map.put(KeyCode.DIGIT9, numpad9);
-        map.put(KeyCode.DECIMAL, decimal);
+        map.put(KeyCode.DIGIT0, numpad0);       //keyboard
+        map.put(KeyCode.DIGIT1, numpad1);       //keyboard
+        map.put(KeyCode.DIGIT2, numpad2);       //keyboard
+        map.put(KeyCode.DIGIT3, numpad3);       //keyboard
+        map.put(KeyCode.DIGIT4, numpad4);       //keyboard
+        map.put(KeyCode.DIGIT5, numpad5);       //keyboard
+        map.put(KeyCode.DIGIT6, numpad6);       //keyboard
+        map.put(KeyCode.DIGIT7, numpad7);       //keyboard
+        map.put(KeyCode.DIGIT8, numpad8);       //keyboard
+        map.put(KeyCode.DIGIT9, numpad9);       //keyboard
+        map.put(KeyCode.DECIMAL, decimal);      //numpad ,
+        map.put(KeyCode.COMMA, decimal);        //keyboard ,
 
 
 
