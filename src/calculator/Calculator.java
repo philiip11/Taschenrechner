@@ -24,7 +24,12 @@ public class Calculator {
     private ArrayList<EquationElement> equation = new ArrayList<>();
     private double result;
     private int indent = 0;
+    private boolean root;
     private int leftBracketPosition;
+
+    Calculator(boolean root) {
+        this.root = root;
+    }
 
     void addElement(EquationElement element) {
         equation.add(element);
@@ -43,7 +48,7 @@ public class Calculator {
         Operator o = null;
 
         //TODO do some more magic here
-        if (indent == 0) {
+        if (root) {
             addBrackets();
         }
         while (simplifyBrackets()) ;
@@ -276,8 +281,8 @@ public class Calculator {
     }
 
     private int handleBrackets(int i) {
-        Calculator subCalculator = new Calculator();
-        subCalculator.setIndent(getSubStringLength(0, i - 1) + indent);
+        Calculator subCalculator = new Calculator(false);
+        subCalculator.setIndent(getSubStringLength(0, i) + indent);
         int start = i;
         int bracketsCounter = 1;
         boolean inLoop = true;
@@ -316,7 +321,7 @@ public class Calculator {
         double subResult = subCalculator.getResult();
         logHighlight(start, end, ANSI_RED);
         equation.subList(start, end + 1).clear();
-        //indent += end - start;
+        indent += end - start;
         equation.add(start, new Number(subResult));
         logHighlight(start, ANSI_GREEN);
     }

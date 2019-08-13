@@ -9,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
-import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 
 import java.text.DecimalFormat;
@@ -76,7 +75,7 @@ public class Controller {
     JFXButton bracketOpen;
     private Map<KeyCode, JFXButton> map = new HashMap<>();
     //private ScriptEngine scriptEngine;
-    private Calculator calculator = new Calculator();
+    private Calculator calculator = new Calculator(true);
     private DecimalFormat decimalFormat = new DecimalFormat("#.########");
     private boolean clearOnNextInput = false;
 
