@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.*?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-
 <GridPane alignment="center" hgap="10" minHeight="900.0" minWidth="600.0" style="-fx-background-color: #444444;" vgap="10" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="calculator.Controller">
     <columnConstraints>
         <ColumnConstraints />
@@ -46,7 +42,7 @@
                GridPane.columnIndex="3" GridPane.rowIndex="6"/>
     <JFXButton fx:id="numpad0" mnemonicParsing="false" onAction="#buttonClick" styleClass="numberButton" text="0"
                GridPane.columnIndex="2" GridPane.rowIndex="7"/>
-    <JFXButton fx:id="plusminus" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text=")"
+    <JFXButton fx:id="bracketClose" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text=")"
                GridPane.columnIndex="1" GridPane.rowIndex="7"/>
     <JFXButton fx:id="decimal" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text=","
                GridPane.columnIndex="3" GridPane.rowIndex="7"/>
@@ -74,7 +70,7 @@
                GridPane.rowIndex="5"/>
     <JFXButton fx:id="cube" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="±"
                GridPane.rowIndex="6"/>
-    <JFXButton fx:id="inverse" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="("
+    <JFXButton fx:id="bracketOpen" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="("
                GridPane.rowIndex="7"/>
     <JFXTextField fx:id="numbers" alignment="CENTER_RIGHT" onKeyPressed="#onKeyPressed"
                   onKeyReleased="#onKeyReleased" onKeyTyped="#onKeyTyped" prefWidth="550.0" styleClass="numbers"

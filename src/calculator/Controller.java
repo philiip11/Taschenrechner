@@ -180,19 +180,6 @@ public class Controller {
 
         numbers.setText(decimalFormat.format(calculator.getResult()));
         calculator.clear();
-
-        //TODO Use Calculator Class
-        /*try {
-            String eval = numbers.getText();
-            eval = eval.replace("÷", "/");
-            eval = eval.replace("×", "*");
-            if (eval.length() > 0) {
-                numbers.setText(scriptEngine.eval(eval).toString());
-            }
-        } catch (ScriptException e) {
-            numbers.setText("ERROR");
-            e.printStackTrace();
-        }*/
     }
 
     public void buttonClick(ActionEvent actionEvent) {
