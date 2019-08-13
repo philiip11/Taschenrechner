@@ -1,4 +1,4 @@
-package sample;
+package calculator;
 
 import com.jfoenix.controls.JFXDecorator;
 import com.jfoenix.svg.SVGGlyph;

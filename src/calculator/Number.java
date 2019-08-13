@@ -1,10 +1,10 @@
-package sample;
+package calculator;
 
 import java.text.DecimalFormat;
 
 public class Number extends EquationElement {
 
-    DecimalFormat decimalFormat = new DecimalFormat("#.###");
+    private DecimalFormat decimalFormat = new DecimalFormat("#.###");
     private double value;
 
     @Override

@@ -1,14 +1,13 @@
-package sample.Operators;
+package calculator.Operators;
 
-import sample.Number;
-import sample.Operator;
+import calculator.Number;
+import calculator.Operator;
 
-public class Add extends Operator {
+public class Subtract extends Operator {
     private int priority = 1;
-
     @Override
     public Number calc(Number a, Number b) {
-        return new Number(a.getValue() + b.getValue());
+        return new Number(a.getValue() - b.getValue());
     }
 
     @Override
@@ -18,6 +17,6 @@ public class Add extends Operator {
 
     @Override
     public String toString() {
-        return "+";
+        return "-";
     }
 }

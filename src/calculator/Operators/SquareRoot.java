@@ -1,7 +1,7 @@
-package sample.Operators;
+package calculator.Operators;
 
-import sample.Number;
-import sample.Operator;
+import calculator.Number;
+import calculator.Operator;
 
 public class SquareRoot extends Operator {
     private int priority = 3;

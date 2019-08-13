@@ -1,4 +1,4 @@
-package sample;
+package calculator;
 
 public abstract class Operator extends EquationElement {
 
@@ -15,6 +15,10 @@ public abstract class Operator extends EquationElement {
     }
 
     private int priority;
+
+    public void addPriority(int i) {
+        priority += i;
+    }
 
 
     @Override

@@ -1,13 +1,13 @@
-package sample.Operators;
+package calculator.Operators;
 
-import sample.Number;
-import sample.Operator;
+import calculator.Number;
+import calculator.Operator;
 
-public class Divide extends Operator {
+public class Multiply extends Operator {
     private int priority = 2;
     @Override
     public Number calc(Number a, Number b) {
-        return new Number(a.getValue() / b.getValue());
+        return new Number(a.getValue() * b.getValue());
     }
 
     @Override
@@ -17,6 +17,6 @@ public class Divide extends Operator {
 
     @Override
     public String toString() {
-        return "÷";
+        return "×";
     }
 }

@@ -1,4 +1,4 @@
-package sample;
+package calculator;
 
 import java.util.ArrayList;
 
@@ -22,12 +22,13 @@ public class Calculator {
         Operator o = null;
 
         //TODO do some more magic here
+        addBrackets();
 
         int i = 0;
         while (i < equation.size()) {
             System.out.println(this.toString());
             EquationElement element = equation.get(i);
-            if (element.isNumber()) {
+            if (element instanceof Number) {
                 if (a == null) {
                     a = (Number) element;
                     if (o != null) {
@@ -49,8 +50,12 @@ public class Calculator {
                     System.out.println("Two Numbers without Operator, something is missing :(");
                     break;
                 }
-            } else {
+            } else if (element instanceof Brackets) {
+                i = handleBrackets(i);
+
+            } else if (element instanceof Operator) {
                 o = (Operator) element;
+
             }
             i++;
         }
@@ -70,6 +75,57 @@ public class Calculator {
         }
         equation.clear();
 
+    }
+
+    private void addBrackets() {
+        int i = 0;
+        for (int p = 3; p > 1; p--) {
+            while (i < equation.size()) {
+                System.out.println(this.toString());
+                EquationElement element = equation.get(i);
+                if (element instanceof Operator) {
+                    Operator o = (Operator) element;
+                    int priority = o.getPriority();
+                }
+                i++;
+            }
+        }
+    }
+
+    private int handleBrackets(int i) {
+        Calculator subCalculator = new Calculator();
+        int start = i;
+        int bracketsCounter = 1;
+        boolean inLoop = true;
+        EquationElement subElement;
+        while (inLoop) {
+            i++;
+            subElement = equation.get(i);
+            if (subElement instanceof Brackets) {
+                Brackets brackets = (Brackets) subElement;
+                if (brackets.isOpening()) {
+                    bracketsCounter++;
+                } else {
+                    bracketsCounter--;
+                }
+            }
+            if (bracketsCounter == 0) {
+                inLoop = false;
+                replaceBracketsWithSubResult(i, subCalculator, start);
+                i = start - 1;
+            } else {
+                subCalculator.addElement(subElement);
+            }
+        }
+        return i;
+    }
+
+    private void replaceBracketsWithSubResult(int i, Calculator subCalculator, int start) {
+        double subResult = subCalculator.getResult();
+        if (i >= start) {
+            equation.subList(start, i + 1).clear();
+        }
+        equation.add(start, new Number(subResult));
     }
 
     private Number doCalculation(Number a, Number b, Operator o, int i) {

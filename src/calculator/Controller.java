@@ -1,5 +1,6 @@
-package sample;
+package calculator;
 
+import calculator.Operators.*;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.application.Platform;
@@ -9,11 +10,6 @@ import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyEvent;
-import sample.Operators.Add;
-import sample.Operators.Divide;
-import sample.Operators.Multiply;
-import sample.Operators.Subtract;
-
 
 import java.text.DecimalFormat;
 import java.util.HashMap;
@@ -80,13 +76,13 @@ public class Controller {
     private Calculator calculator = new Calculator();
     private DecimalFormat decimalFormat = new DecimalFormat("#.########");
     private final KeyCodeCombination operator_add = new KeyCodeCombination(KeyCode.DIGIT7, KeyCodeCombination.SHIFT_DOWN);
+    private boolean clearOnNextInput = false;
 
 
     public void initialize() {
         //TODO Use Calculator Class
         //ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
         //scriptEngine = scriptEngineManager.getEngineByName("js");
-
         map.put(KeyCode.ENTER, enter);
         map.put(KeyCode.NUMPAD0, numpad0);
         map.put(KeyCode.NUMPAD1, numpad1);
@@ -172,8 +168,10 @@ public class Controller {
             case "8":
             case "9":
             case ",":
+                clearIfNecessary();
                 numbers.setText(numbers.getText() + input);
                 break;
+
             case "+":
                 addOperator(new Add());
                 break;
@@ -186,15 +184,34 @@ public class Controller {
             case "÷":
                 addOperator(new Divide());
                 break;
+            case "√":
+                addOperator(new SquareRoot());
+                break;
+            case "(":
+                addOperator(new Brackets(Brackets.OPENING));
+                break;
+            case ")":
+                addOperator(new Brackets(Brackets.CLOSING));
+                break;
+            case "^":
+                addOperator(new Power());
+                break;
+            case "%":
+                addOperator(new Percentage());
+                break;
+            case "±":
+                numbers.setText(String.valueOf(Integer.parseInt(numbers.getText()) * (-1)));
+                break;
+
             case "=":
                 addNumber();
                 updateEquation();
                 calc();
+                clearOnNextInput = true;
                 break;
             case "C":
                 calculator.clear();
                 updateEquation();
-
             case "CE":
                 numbers.setText("");
                 break;
@@ -206,7 +223,15 @@ public class Controller {
         }
     }
 
-    private void addOperator(Operator op) {
+    private void clearIfNecessary() {
+        if (clearOnNextInput) {
+            clearOnNextInput = false;
+            numbers.setText("");
+            updateEquation();
+        }
+    }
+
+    private void addOperator(EquationElement op) {
         addNumber();
         calculator.addElement(op);
         updateEquation();

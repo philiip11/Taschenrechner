@@ -1,4 +1,4 @@
-package sample;
+package calculator;
 
 public abstract class EquationElement {
 
