@@ -76,7 +76,7 @@ public class Controller {
     private Map<KeyCode, JFXButton> map = new HashMap<>();
     //private ScriptEngine scriptEngine;
     private Calculator calculator = new Calculator(true);
-    private DecimalFormat decimalFormat = new DecimalFormat("#.########");
+    private DecimalFormat decimalFormat = new DecimalFormat("#.############");
     private boolean clearOnNextInput = false;
 
 
