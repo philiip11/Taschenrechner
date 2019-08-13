@@ -75,12 +75,25 @@ public class Controller {
     //private ScriptEngine scriptEngine;
     private Calculator calculator = new Calculator();
     private DecimalFormat decimalFormat = new DecimalFormat("#.########");
-    private final KeyCodeCombination operator_add = new KeyCodeCombination(KeyCode.DIGIT7, KeyCodeCombination.SHIFT_DOWN);
     private boolean clearOnNextInput = false;
+
+
+    private final KeyCodeCombination operator_add = new KeyCodeCombination(KeyCode.DIGIT7, KeyCodeCombination.SHIFT_DOWN);
+    private static Map<KeyCode, JFXButton> shiftComboMap = new HashMap<>();
+
+
 
 
     public void initialize() {
         //TODO Use Calculator Class
+
+        //with shift pressed
+        shiftComboMap.put(KeyCode.DIGIT7, divide);
+        shiftComboMap.put(KeyCode.PLUS, multiply);
+
+
+
+
         //ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
         //scriptEngine = scriptEngineManager.getEngineByName("js");
         map.put(KeyCode.ENTER, enter);
@@ -95,8 +108,10 @@ public class Controller {
         map.put(KeyCode.NUMPAD8, numpad8);
         map.put(KeyCode.NUMPAD9, numpad9);
         map.put(KeyCode.ADD, add);
+        map.put(KeyCode.PLUS, add);
         //map.put(operator_add, add);                 //TODO multiple keys on action
         map.put(KeyCode.SUBTRACT, subtract);
+        map.put(KeyCode.MINUS, subtract);
         map.put(KeyCode.MULTIPLY, multiply);
         map.put(KeyCode.DIVIDE, divide);
         map.put(KeyCode.ESCAPE, escape);
