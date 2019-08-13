@@ -47,7 +47,6 @@ public class Calculator {
         Number c;
         Operator o = null;
 
-        //TODO do some more magic here
         if (root) {
             addBrackets();
         }
@@ -55,7 +54,7 @@ public class Calculator {
 
         int i = 0;
         while (i < equation.size()) {
-            logHighlight(i, ANSI_BLUE);
+            //logHighlight(i, ANSI_BLUE);
             EquationElement element = equation.get(i);
             if (element instanceof Number) {
                 if (a == null) {
