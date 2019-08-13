@@ -4,7 +4,12 @@ import calculator.Number;
 import calculator.Operator;
 
 public class Subtract extends Operator {
-    private int priority = 1;
+
+    @Override
+    public int getPriority() {
+        return 1;
+    }
+
     @Override
     public Number calc(Number a, Number b) {
         return new Number(a.getValue() - b.getValue());

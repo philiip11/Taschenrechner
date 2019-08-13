@@ -4,7 +4,11 @@ import calculator.Number;
 import calculator.Operator;
 
 public class Divide extends Operator {
-    private int priority = 2;
+
+    @Override
+    public int getPriority() {
+        return 2;
+    }
     @Override
     public Number calc(Number a, Number b) {
         return new Number(a.getValue() / b.getValue());

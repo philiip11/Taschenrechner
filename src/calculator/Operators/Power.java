@@ -4,7 +4,11 @@ import calculator.Number;
 import calculator.Operator;
 
 public class Power extends Operator {
-    private int priority = 3;
+
+    @Override
+    public int getPriority() {
+        return 3;
+    }
 
     @Override
     public Number calc(Number a, Number b) {
