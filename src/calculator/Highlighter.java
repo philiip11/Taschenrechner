@@ -21,11 +21,11 @@ public class Highlighter {
     static final String CYAN_BACKGROUND = "\u001B[46m";
     static final String WHITE_BACKGROUND = "\u001B[47m";
 
-    static void logHighlight(int h, String color, ArrayList<EquationElement> equation, int indent) {
-        logHighlight(h, h, color, equation, indent);
+    static void log(int h, String color, ArrayList<EquationElement> equation, int indent) {
+        log(h, h, color, equation, indent);
     }
 
-    static void logHighlight(int h, int hstop, String color, ArrayList<EquationElement> equation, int indent) {
+    static void log(int h, int hstop, String color, ArrayList<EquationElement> equation, int indent) {
         StringBuilder result = new StringBuilder();
         result.append(getIndent(indent));
         for (int i = 0; i < equation.size(); i++) {
@@ -42,7 +42,7 @@ public class Highlighter {
     }
 
 
-    static void logHighlight(int h, String color, int h2, ArrayList<EquationElement> equation, int indent) {
+    static void log(int h, String color, int h2, ArrayList<EquationElement> equation, int indent) {
         StringBuilder result = new StringBuilder();
         result.append(getIndent(indent));
         for (int i = 0; i < equation.size(); i++) {

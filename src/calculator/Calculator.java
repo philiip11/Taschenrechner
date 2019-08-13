@@ -94,7 +94,7 @@ public class Calculator {
         if (first instanceof Brackets && last instanceof Brackets) {
             if (((Brackets) first).isOpening() && ((Brackets) last).isClosing()) {
                 if (!unresolvedBrackets()) {
-                    Highlighter.logHighlight(0, Highlighter.RED, equation.size() - 1, equation, indent);
+                    Highlighter.log(0, Highlighter.RED, equation.size() - 1, equation, indent);
                     equation.remove(first);             // Wenn erstes und letztes Element Klammern sind
                     equation.remove(last);              // und diese nicht benötigt werden, dann
                     indent += 2;                        // werden diese entfernt
@@ -212,7 +212,7 @@ public class Calculator {
             if (type == Brackets.OPENING) {
                 leftBracketPosition = i;            // Merke Position, damit nur eine Zeile je Klammernpaar ausgegeben wird.
             } else {
-                Highlighter.logHighlight(leftBracketPosition, Highlighter.GREEN, i, equation, indent);
+                Highlighter.log(leftBracketPosition, Highlighter.GREEN, i, equation, indent);
             }
             return true;
         }
@@ -222,8 +222,8 @@ public class Calculator {
 
     private int handleBrackets(int i) {
         Calculator subCalculator = new Calculator(false);
-        subCalculator.setIndent(getSubStringLength(0, i) + indent);
-        int start = i;
+        subCalculator.setIndent(getSubStringLength(0, i) + indent); // Gleichungen in Klammern werden rekursiv in einem
+        int start = i;                                              // subCalculator gelöst
         int bracketsCounter = 1;
         boolean inLoop = true;
         EquationElement subElement;
@@ -232,16 +232,16 @@ public class Calculator {
             subElement = equation.get(i);
             if (subElement instanceof Brackets) {
                 Brackets brackets = (Brackets) subElement;
-                if (brackets.isOpening()) {
-                    bracketsCounter++;
+                if (brackets.isOpening()) {                     // Prüfe auf nicht aufgelöste Klammern,
+                    bracketsCounter++;                          // siehe updateBracketsCounter(...)
                 } else {
                     bracketsCounter--;
                 }
             }
             if (bracketsCounter == 0) {
                 inLoop = false;
-                replaceBracketsWithSubResult(subCalculator, start, i);
-                i = start - 1;
+                replaceBracketsWithSubResult(subCalculator, start, i);  // Das Ergebnis des subCalculators wird an die
+                i = start - 1;                                          // Stelle der Klammern eingefügt.
             } else {
                 subCalculator.addElement(subElement);
             }
@@ -249,33 +249,25 @@ public class Calculator {
         return i;
     }
 
-    private int getSubStringLength(int start, int end) {
-        int result = 0;
-        for (int i = start; i <= end; i++) {
-            result += equation.get(i).toString().length() + 1;
-        }
-        return result;
-    }
-
     private void replaceBracketsWithSubResult(Calculator subCalculator, int start, int end) {
         double subResult = subCalculator.getResult();
-        Highlighter.logHighlight(start, end, Highlighter.RED, equation, indent);
+        Highlighter.log(start, end, Highlighter.RED, equation, indent);
         equation.subList(start, end + 1).clear();
         indent += end - start;
         equation.add(start, new Number(subResult));
-        Highlighter.logHighlight(start, Highlighter.GREEN, equation, indent);
+        Highlighter.log(start, Highlighter.GREEN, equation, indent);
     }
 
     private Number doCalculation(Number a, Number b, Operator o, int i) {
         Number c;
-        c = o.calc(a, b);
+        c = o.calc(a, b);               // Berechnet eine Teilgleichung
         System.out.println(getIndent() + Highlighter.CYAN + a.toString() + " " + o.toString() + " " + b.toString() + " = " + c.toString() + Highlighter.RESET);
-        Highlighter.logHighlight(i - 2, i, Highlighter.RED, equation, indent);
-        equation.remove(i);            //b
-        equation.remove(i - 1); //o
-        equation.remove(i - 2); //a
-        equation.add(i - 2, c);
-        Highlighter.logHighlight(i - 2, Highlighter.GREEN, equation, indent);
+        Highlighter.log(i - 2, i, Highlighter.RED, equation, indent);
+        equation.remove(i);             // b                       // Entferne Teilgleichung
+        equation.remove(i - 1);  // o
+        equation.remove(i - 2);  // a
+        equation.add(i - 2, c);                             // Setze Ergebnis in Gleichung ein
+        Highlighter.log(i - 2, Highlighter.GREEN, equation, indent);
         a = c;
         return a;
     }
@@ -285,13 +277,21 @@ public class Calculator {
         Number b;
         c = o.calc(a);
         System.out.println(getIndent() + Highlighter.CYAN + a.toString() + " " + o.toString() + " = " + c.toString() + Highlighter.RESET);
-        Highlighter.logHighlight(i - 1, i, Highlighter.RED, equation, indent);
+        Highlighter.log(i - 1, i, Highlighter.RED, equation, indent);
         equation.remove(i);
         equation.remove(i - 1);
         equation.add(i - 1, c);
-        Highlighter.logHighlight(i - 1, Highlighter.GREEN, equation, indent);
+        Highlighter.log(i - 1, Highlighter.GREEN, equation, indent);
         a = c;
         return a;
+    }
+
+    private int getSubStringLength(int start, int end) {
+        int result = 0;
+        for (int i = start; i <= end; i++) {
+            result += equation.get(i).toString().length() + 1;
+        }
+        return result;
     }
 
     private String getIndent() {
