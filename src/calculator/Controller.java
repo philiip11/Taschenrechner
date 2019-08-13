@@ -134,7 +134,7 @@ public class Controller {
         Platform.runLater(() -> numbers.requestFocus());
     }
 
-//    public static void findAndExecuteKey(KeyEvent event){    //testing purposes
+//    public static void findAndExecuteKey(KeyEvent event){    //testing purposes  try 1
 //
 //        KeyCode keyCode = event.getCode();
 //        JFXButton jfxb = shiftComboMap.get(keyCode);
@@ -278,25 +278,6 @@ public class Controller {
         keyEvent.consume();
     }
 
-    public void findAndExecuteKey(KeyEvent keyEvent) {
-        KeyCode keyCode = keyEvent.getCode();
-        JFXButton jfxb = shiftComboMap.get(keyCode);
-        //if exist fires corresponding button
-        if (jfxb != null) {
-            KeyCodeCombination combination = new KeyCodeCombination(keyCode, CONTROL_DOWN);
-            if (combination.match(keyEvent)) {
-                jfxb = shiftComboMap.get(keyCode);
-                jfxb.getOnKeyPressed();
-                return;
-            }
-        }
-        //if no combinations found use single button mapping
-        jfxb = map.get(keyCode);
-        if (jfxb != null) {
-            jfxb = map.get(keyCode);
-            jfxb.getOnKeyPressed();
-        }
-    }
 
-//
+
 }
