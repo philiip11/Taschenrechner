@@ -9,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
-import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 
 import java.text.DecimalFormat;
@@ -134,7 +133,7 @@ public class Controller {
         Platform.runLater(() -> numbers.requestFocus());
     }
 
-//    public static void findAndExecuteKey(KeyEvent event){    //testing
+//    public static void findAndExecuteKey(KeyEvent event){    //testing purposes
 //
 //        KeyCode keyCode = event.getCode();
 //        JFXButton jfxb = shiftComboMap.get(keyCode);
@@ -146,9 +145,6 @@ public class Controller {
 //               jfxb.fire();
 //            }
 //        }
-//
-//
-//
 //    }
 
 

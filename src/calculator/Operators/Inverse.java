@@ -3,7 +3,7 @@ package calculator.Operators;
 import calculator.Number;
 import calculator.Operator;
 
-public class Inverse extends Operator {   //operator openingbracket changed fxid: (from inverse to openingbracket)
+public class Inverse extends Operator {
 
     @Override
     public int getPriority() {
