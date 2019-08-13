@@ -23,6 +23,7 @@ public class Calculator {
 
     private ArrayList<EquationElement> equation = new ArrayList<>();
     private double result;
+    private int indent = 0;
 
     void addElement(EquationElement element) {
         equation.add(element);
@@ -102,18 +103,28 @@ public class Calculator {
 
     private void logHighlight(int h, int hstop, String ansi_color) {
         StringBuilder result = new StringBuilder();
+        result.append(getIndent());
         for (int i = 0; i < equation.size(); i++) {
             if (i == h) {
                 result.append(ansi_color);
             }
-            result.append(equation.get(i));
+            result.append(equation.get(i)).append(" ");
             if (i == hstop) {
                 result.append(ANSI_RESET);
             }
         }
+        result.append(ANSI_RESET);
         System.out.println(result);
 
 
+    }
+
+    private String getIndent() {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < indent; i++) {
+            result.append(" ");
+        }
+        return result.toString();
     }
 
     private void simplifyBrackets() {
@@ -128,6 +139,7 @@ public class Calculator {
                     logHighlight(equation.size() - 1, ANSI_RED);
                     equation.remove(first);
                     equation.remove(last);
+                    indent += 2;
                 }
             }
         }
@@ -160,7 +172,7 @@ public class Calculator {
                 if (element instanceof Operator) {
                     Operator o = (Operator) element;
                     if (o.getPriority() == priority) {
-                        System.out.println("Add Brackets:");
+                        //System.out.println("Add Brackets:");
                         addLeftBracket(i);
                         addRightBracket(i);
                         i++;  // Springe ein Element nach Rechts, da links eine Klammer hinzugefügt wurde.
@@ -191,7 +203,7 @@ public class Calculator {
             } else if (element instanceof Number) {
                 if (bracketsCounter == 0) {
                     equation.add(i, new Brackets(Brackets.OPENING));
-                    logHighlight(i, ANSI_GREEN);
+                    //logHighlight(i, ANSI_GREEN);
                     added = true;
                 }
             }
@@ -201,9 +213,14 @@ public class Calculator {
     private void addRightBracket(int i) {
         boolean added = false;
         int bracketsCounter = 0;
+        EquationElement element;
         while (!added) {
             i++;
-            EquationElement element = equation.get(i);
+            if (i == equation.size()) {
+                element = null;
+            } else {
+                element = equation.get(i);
+            }
             if (element instanceof Brackets) {
                 Brackets bracket = (Brackets) element;
                 if (bracket.isOpening()) {
@@ -217,15 +234,23 @@ public class Calculator {
             } else if (element instanceof Number) {
                 if (bracketsCounter == 0) {
                     equation.add(i + 1, new Brackets(Brackets.CLOSING));
-                    logHighlight(i + 1, ANSI_GREEN);
+                    //logHighlight(i + 1, ANSI_GREEN);
                     added = true;
                 }
+            } else if (element == null) {
+                if (bracketsCounter == 0) {
+                    equation.add(i, new Brackets(Brackets.CLOSING));
+                    //logHighlight(i, ANSI_GREEN);
+                    added = true;
+                }
+
             }
         }
     }
 
     private int handleBrackets(int i) {
         Calculator subCalculator = new Calculator();
+        subCalculator.setIndent(getSubStringLength(0, i - 1) + indent);
         int start = i;
         int bracketsCounter = 1;
         boolean inLoop = true;
@@ -243,7 +268,7 @@ public class Calculator {
             }
             if (bracketsCounter == 0) {
                 inLoop = false;
-                replaceBracketsWithSubResult(i, subCalculator, start);
+                replaceBracketsWithSubResult(subCalculator, start, i);
                 i = start - 1;
             } else {
                 subCalculator.addElement(subElement);
@@ -252,12 +277,19 @@ public class Calculator {
         return i;
     }
 
-    private void replaceBracketsWithSubResult(int i, Calculator subCalculator, int start) {
-        double subResult = subCalculator.getResult();
-        if (i >= start) {
-            logHighlight(start, i + 1, ANSI_RED);
-            equation.subList(start, i + 1).clear();
+    private int getSubStringLength(int start, int end) {
+        int result = 0;
+        for (int i = start; i <= end; i++) {
+            result += equation.get(i).toString().length() + 1;
         }
+        return result;
+    }
+
+    private void replaceBracketsWithSubResult(Calculator subCalculator, int start, int end) {
+        double subResult = subCalculator.getResult();
+        logHighlight(start, end, ANSI_RED);
+        equation.subList(start, end + 1).clear();
+        indent += end - start;
         equation.add(start, new Number(subResult));
         logHighlight(start, ANSI_GREEN);
     }
@@ -265,7 +297,7 @@ public class Calculator {
     private Number doCalculation(Number a, Number b, Operator o, int i) {
         Number c;
         c = o.calc(a, b);
-        System.out.println(ANSI_CYAN + a.toString() + " " + o.toString() + " " + b.toString() + " = " + c.toString() + ANSI_RESET);
+        System.out.println(getIndent() + ANSI_CYAN + a.toString() + " " + o.toString() + " " + b.toString() + " = " + c.toString() + ANSI_RESET);
         logHighlight(i - 2, i, ANSI_RED);
         equation.remove(i);            //b
         equation.remove(i - 1); //o
@@ -280,7 +312,7 @@ public class Calculator {
         Number c;
         Number b;
         c = o.calc(a);
-        System.out.println(ANSI_CYAN + a.toString() + " " + o.toString() + " = " + c.toString() + ANSI_RESET);
+        System.out.println(getIndent() + ANSI_CYAN + a.toString() + " " + o.toString() + " = " + c.toString() + ANSI_RESET);
         logHighlight(i - 1, i, ANSI_RED);
         equation.remove(i);
         equation.remove(i - 1);
@@ -302,5 +334,9 @@ public class Calculator {
             result.append(element.toString()).append(" ");
         }
         return result.toString().trim();
+    }
+
+    public void setIndent(int indent) {
+        this.indent = indent;
     }
 }
