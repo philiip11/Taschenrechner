@@ -3,23 +3,6 @@ package calculator;
 import java.util.ArrayList;
 
 public class Calculator {
-    private static final String ANSI_RESET = "\u001B[0m";
-    private static final String ANSI_BLACK = "\u001B[30m";
-    private static final String ANSI_RED = "\u001B[31m";
-    private static final String ANSI_GREEN = "\u001B[32m";
-    private static final String ANSI_YELLOW = "\u001B[33m";
-    private static final String ANSI_BLUE = "\u001B[34m";
-    private static final String ANSI_PURPLE = "\u001B[35m";
-    private static final String ANSI_CYAN = "\u001B[36m";
-    private static final String ANSI_WHITE = "\u001B[37m";
-    private static final String ANSI_BLACK_BACKGROUND = "\u001B[40m";
-    private static final String ANSI_RED_BACKGROUND = "\u001B[41m";
-    private static final String ANSI_GREEN_BACKGROUND = "\u001B[42m";
-    private static final String ANSI_YELLOW_BACKGROUND = "\u001B[43m";
-    private static final String ANSI_BLUE_BACKGROUND = "\u001B[44m";
-    private static final String ANSI_PURPLE_BACKGROUND = "\u001B[45m";
-    private static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
-    private static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 
     private ArrayList<EquationElement> equation = new ArrayList<>();
     private double result;
@@ -42,113 +25,68 @@ public class Calculator {
     }
 
     private void calc() {
-        Number a = null;
-        Number b = null;
-        Number c;
-        Operator o = null;
 
         if (root) {
-            addBrackets();
-        }
-        while (simplifyBrackets()) ;
-
-        int i = 0;
-        while (i < equation.size()) {
-            //logHighlight(i, ANSI_BLUE);
-            EquationElement element = equation.get(i);
-            if (element instanceof Number) {
-                if (a == null) {
-                    a = (Number) element;
-                    if (o != null) {
-                        if (o.useOneArgument()) {
-                            a = doCalculation(a, o, i);
-                            i--;
-                        }
-                    }
-                } else if (b == null) {
-                    b = (Number) element;
-                    if (o != null) {
-                        a = doCalculation(a, b, o, i);
-                        b = null;
-                        i -= 2;
-                    } else {
-                        System.out.println("Something went wrong. :(");
-                    }
-                } else {
-                    System.out.println("Two Numbers without Operator, something is missing :(");
-                    break;
-                }
-            } else if (element instanceof Brackets) {
-                i = handleBrackets(i);
-
-            } else if (element instanceof Operator) {
-                o = (Operator) element;
-
-            }
-            i++;
-        }
-        switch (equation.size()) {
-            case 2:
-                if (!(equation.get(1) instanceof Operator)) {
-                    System.out.println("Multiple results!?");
-                    break;
-                }
-            case 1:
-                result = ((Number) equation.get(0)).getValue();
-                break;
-            default:
-                System.out.println("Multiple results!?");
-                System.out.println(this.toString());
-                break;
-        }
+            addBrackets();          // Füge Klammern hinzu, damit Punkt vor Strichrechnung gilt.
+        }                           // KlaPoPuS (Klammer vor Potenz vor Punkt vor Strich)
+        while (simplifyBrackets()) ;// Entferne unnötige Klammern am Rand z.b. (1+2) => 1+2
+        parseEquation();            // Gleichung ausrechnen
+        parseResult();              // Ergebnis erkennen
         equation.clear();
 
     }
 
-    private void logHighlight(int h, String ansi_color) {
-        logHighlight(h, h, ansi_color);
-    }
 
-    private void logHighlight(int h, int hstop, String ansi_color) {
-        StringBuilder result = new StringBuilder();
-        result.append(getIndent());
-        for (int i = 0; i < equation.size(); i++) {
-            if (i == h) {
-                result.append(ansi_color);
+    private void parseEquation() {
+        Number a = null;                // a (o) b = x z.b. 1 + 2 = 3
+        Number b = null;
+        Operator o = null;
+        int i = 0;
+        while (i < equation.size()) {
+            //logHighlight(i, ANSI_BLUE);
+            EquationElement element = equation.get(i);  // Gehe Elemente v.l.n.r. durch.
+            if (element instanceof Number) {
+                if (a == null) {
+                    a = (Number) element;               // Weise element zu a zu, falls a leer
+                    if (o != null) {
+                        if (o.useOneArgument()) {       // Falls der Operator nur ein Argument braucht (z.b. Wurzel),
+                            a = doCalculation(a, o, i); // dann führe diese Berechnung aus.
+                            i--;
+                        }
+                    }
+                } else if (b == null) {
+                    b = (Number) element;               // Weise element zu b zu, falls a schon belegt und b leer
+                    if (o != null) {
+                        a = doCalculation(a, b, o, i);  // Führe Berechnung a (o) b = c aus und weise den Wert a zu
+                        b = null;
+                        i -= 2;                         // Verschiebe den Index nach links, da links Elemente entfernt wurden
+                    } else {
+                        System.out.println("Two Numbers without Operator, something is missing :(");
+                    }
+                } else {
+                    System.out.println("Three Numbers in a row, that shouldn't happen :(");
+                    break;
+                }
+            } else if (element instanceof Brackets) {
+                i = handleBrackets(i);                  // Hier werden Klammern verarbeitet
+
+            } else if (element instanceof Operator) {
+                o = (Operator) element;                 // Merke den Operator für den nächsten Durchgang
+
             }
-            result.append(equation.get(i)).append(" ");
-            if (i == hstop) {
-                result.append(ANSI_RESET);
-            }
+            i++;                                        // Schiebe den Index ein Element weiter
         }
-        result.append(ANSI_RESET);
-        System.out.println(result);
     }
 
-
-    private void logHighlight(int h, String ansi_color, int h2) {
-        StringBuilder result = new StringBuilder();
-        result.append(getIndent());
-        for (int i = 0; i < equation.size(); i++) {
-            if (i == h || i == h2) {
-                result.append(ansi_color);
-            }
-            result.append(equation.get(i)).append(" ");
-            if (i == h || i == h2) {
-                result.append(ANSI_RESET);
-            }
+    private void parseResult() {
+        if (equation.size() == 1) {
+            result = ((Number) equation.get(0)).getValue(); // Das einzig verbleibende Element ist das Ergebnis
+        } else {
+            System.out.println("Multiple results!?");       // Wenn man Quatsch eingibt, kommt Quatsch heraus...
+            System.out.println(this.toString());
         }
-        result.append(ANSI_RESET);
-        System.out.println(result);
     }
 
-    private String getIndent() {
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < indent; i++) {
-            result.append(" ");
-        }
-        return result.toString();
-    }
 
     private boolean simplifyBrackets() {
         EquationElement first = equation.get(0);
@@ -159,7 +97,7 @@ public class Calculator {
                 if (!unresolvedBrackets(bracketCounter)) {
                     //logHighlight(0, ANSI_RED);
                     //logHighlight(equation.size() - 1, ANSI_RED);
-                    logHighlight(0, ANSI_RED, equation.size() - 1);
+                    Highlighter.logHighlight(0, Highlighter.RED, equation.size() - 1, equation, indent);
                     equation.remove(first);
                     equation.remove(last);
                     indent += 2;
@@ -240,7 +178,7 @@ public class Calculator {
             if (type == Brackets.OPENING) {
                 leftBracketPosition = i;
             } else {
-                logHighlight(leftBracketPosition, ANSI_GREEN, i);
+                Highlighter.logHighlight(leftBracketPosition, Highlighter.GREEN, i, equation, indent);
             }
             return true;
         }
@@ -318,23 +256,23 @@ public class Calculator {
 
     private void replaceBracketsWithSubResult(Calculator subCalculator, int start, int end) {
         double subResult = subCalculator.getResult();
-        logHighlight(start, end, ANSI_RED);
+        Highlighter.logHighlight(start, end, Highlighter.RED, equation, indent);
         equation.subList(start, end + 1).clear();
         indent += end - start;
         equation.add(start, new Number(subResult));
-        logHighlight(start, ANSI_GREEN);
+        Highlighter.logHighlight(start, Highlighter.GREEN, equation, indent);
     }
 
     private Number doCalculation(Number a, Number b, Operator o, int i) {
         Number c;
         c = o.calc(a, b);
-        System.out.println(getIndent() + ANSI_CYAN + a.toString() + " " + o.toString() + " " + b.toString() + " = " + c.toString() + ANSI_RESET);
-        logHighlight(i - 2, i, ANSI_RED);
+        System.out.println(getIndent() + Highlighter.CYAN + a.toString() + " " + o.toString() + " " + b.toString() + " = " + c.toString() + Highlighter.RESET);
+        Highlighter.logHighlight(i - 2, i, Highlighter.RED, equation, indent);
         equation.remove(i);            //b
         equation.remove(i - 1); //o
         equation.remove(i - 2); //a
         equation.add(i - 2, c);
-        logHighlight(i - 2, ANSI_GREEN);
+        Highlighter.logHighlight(i - 2, Highlighter.GREEN, equation, indent);
         a = c;
         return a;
     }
@@ -343,16 +281,27 @@ public class Calculator {
         Number c;
         Number b;
         c = o.calc(a);
-        System.out.println(getIndent() + ANSI_CYAN + a.toString() + " " + o.toString() + " = " + c.toString() + ANSI_RESET);
-        logHighlight(i - 1, i, ANSI_RED);
+        System.out.println(getIndent() + Highlighter.CYAN + a.toString() + " " + o.toString() + " = " + c.toString() + Highlighter.RESET);
+        Highlighter.logHighlight(i - 1, i, Highlighter.RED, equation, indent);
         equation.remove(i);
         equation.remove(i - 1);
         equation.add(i - 1, c);
-        logHighlight(i - 1, ANSI_GREEN);
+        Highlighter.logHighlight(i - 1, Highlighter.GREEN, equation, indent);
         a = c;
         return a;
     }
 
+    private String getIndent() {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < indent; i++) {
+            result.append(" ");
+        }
+        return result.toString();
+    }
+
+    public void setIndent(int indent) {
+        this.indent = indent;
+    }
 
     double getResult() {
         calc();
@@ -367,7 +316,4 @@ public class Calculator {
         return result.toString().trim();
     }
 
-    public void setIndent(int indent) {
-        this.indent = indent;
-    }
 }
