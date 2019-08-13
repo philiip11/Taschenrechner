@@ -93,14 +93,11 @@ public class Calculator {
         EquationElement last = equation.get(equation.size() - 1);
         if (first instanceof Brackets && last instanceof Brackets) {
             if (((Brackets) first).isOpening() && ((Brackets) last).isClosing()) {
-                int bracketCounter = 0;
-                if (!unresolvedBrackets(bracketCounter)) {
-                    //logHighlight(0, ANSI_RED);
-                    //logHighlight(equation.size() - 1, ANSI_RED);
+                if (!unresolvedBrackets()) {
                     Highlighter.logHighlight(0, Highlighter.RED, equation.size() - 1, equation, indent);
-                    equation.remove(first);
-                    equation.remove(last);
-                    indent += 2;
+                    equation.remove(first);             // Wenn erstes und letztes Element Klammern sind
+                    equation.remove(last);              // und diese nicht benötigt werden, dann
+                    indent += 2;                        // werden diese entfernt
                     return true;
                 }
             }
@@ -108,14 +105,15 @@ public class Calculator {
         return false;
     }
 
-    private boolean unresolvedBrackets(int bracketCounter) {
+    private boolean unresolvedBrackets() {
+        int bracketCounter = 0;
         for (int i = 1; i < equation.size() - 2; i++) {
             EquationElement element = equation.get(i);
             if (element instanceof Brackets) {
                 Brackets bracket = (Brackets) element;
-                if (bracket.isOpening()) {
-                    bracketCounter++;
-                } else {
+                if (bracket.isOpening()) {                  // Prüfe, ob Klammern am Ende nötig sind, z.b. sind bei
+                    bracketCounter++;                       // (1+2)*(3+4) die Klammern nötig, bei
+                } else {                                    // (1+2+3+4) nicht.
                     bracketCounter--;
                 }
                 if (bracketCounter < 0) {
@@ -127,16 +125,19 @@ public class Calculator {
     }
 
     private void addBrackets() {
-        for (int priority = 3; priority > 1; priority--) {
-            int i = 0;
+        for (int priority = 3; priority > 1; priority--) {      // Fange mit Priorität 3 (Exponenten) an
+            int i = 0;                                          // Danach folgt Priorität 2 (Multiplizieren/Dividiedern)
             while (i < equation.size()) {
                 EquationElement element = equation.get(i);
                 if (element instanceof Operator) {
-                    Operator o = (Operator) element;
-                    if (o.getPriority() == priority) {
-                        addLeftBracket(i);
-                        addRightBracket(i);
-                        i++;  // Springe ein Element nach Rechts, da links eine Klammer hinzugefügt wurde.
+                    Operator o = (Operator) element;            // Füge so viele Klammern ein, so dass eindeutig ist,
+                    if (o.getPriority() == priority) {          // in welcher Reihenfolge Operationen durchgeführt werden
+                        //addLeftBracket(i);                      // sollen.
+                        //addRightBracket(i);
+                        addBracket(i, true);
+                        addBracket(i, false);
+
+                        i++;        // Springe ein Element nach Rechts, da links eine Klammer hinzugefügt wurde.
                     }
                 }
                 i++;
@@ -144,39 +145,72 @@ public class Calculator {
         }
     }
 
-
-    private void addLeftBracket(int i) {
+    private void addBracket(int i, boolean isLeftBracket) {                // Finde die Stelle, an die die öffnende Klammer muss
         boolean added = false;
         int bracketsCounter = 0;
+        EquationElement element;
         while (!added) {
-            i--;
-            EquationElement element = equation.get(i);
+            if (isLeftBracket) {              // Es wird von der Position des Operators nach links oder rechts gestartet,
+                i--;                        // weil die öffnende Klammer links vom Operator stehen soll und die
+            } else {                          // schließende Klammer rechts.
+                i++;
+            }
+            if (i == equation.size()) {
+                element = null;             // Falls die schließende Klammer ans Ende gesetzt werden soll,
+            } else {                        // darf es keine NullPointerException geben.
+                element = equation.get(i);
+            }
             if (element instanceof Brackets) {
-                Brackets bracket = (Brackets) element;
-                if (bracket.isClosing()) {
-                    bracketsCounter++;
-                } else {
-                    bracketsCounter--;
-                }
+                bracketsCounter = updateBracketsCounter(isLeftBracket, bracketsCounter, element);
                 if (bracketsCounter < 0) {
                     System.out.println("BracketsCounter is negative, something is horribly wrong! :'(");
                 } else {
-                    added = addBracketAtPosition(i, bracketsCounter, Brackets.OPENING);
+                    if (!isLeftBracket) {
+                        i++;
+                    }
+                    added = addBracketAtPosition(i, bracketsCounter, isLeftBracket);
+                    if (!isLeftBracket) {
+                        i--;
+                    }
                 }
             } else if (element instanceof Number) {
-                added = addBracketAtPosition(i, bracketsCounter, Brackets.OPENING);
+                if (!isLeftBracket) {
+                    i++;
+                }
+                added = addBracketAtPosition(i, bracketsCounter, isLeftBracket);
+                if (!isLeftBracket) {
+                    i--;
+                }
             } else if (element == null) {
-                added = addBracketAtPosition(0, bracketsCounter, Brackets.OPENING);
+                int j = isLeftBracket ? 0 : i;                      // Klammer kommt ans Ende
+                added = addBracketAtPosition(j, bracketsCounter, isLeftBracket);
 
             }
         }
     }
 
+    private int updateBracketsCounter(boolean isLeftBracket, int bracketsCounter, EquationElement element) {
+        Brackets bracket = (Brackets) element;
+        if (isLeftBracket) {
+            if (bracket.isClosing()) {              // Zähle die Klammern, in die er springt. Z.B.:
+                bracketsCounter++;                  //          ( 2 * ( 3 + 4 ) + 1 ) * 5 = 75
+            } else {                                //          1     2       1     0
+                bracketsCounter--;
+            }
+        } else {
+            if (bracket.isOpening()) {
+                bracketsCounter++;
+            } else {
+                bracketsCounter--;
+            }
+        }
+        return bracketsCounter;
+    }
     private boolean addBracketAtPosition(int i, int bracketsCounter, boolean type) {
-        if (bracketsCounter == 0) {
+        if (bracketsCounter == 0) {             // Prüfe, ob alle Klammern aufgelöst sind
             equation.add(i, new Brackets(type));
             if (type == Brackets.OPENING) {
-                leftBracketPosition = i;
+                leftBracketPosition = i;            // Merke Position, damit nur eine Zeile je Klammernpaar ausgegeben wird.
             } else {
                 Highlighter.logHighlight(leftBracketPosition, Highlighter.GREEN, i, equation, indent);
             }
@@ -185,37 +219,6 @@ public class Calculator {
         return false;
     }
 
-
-    private void addRightBracket(int i) {
-        boolean added = false;
-        int bracketsCounter = 0;
-        EquationElement element;
-        while (!added) {
-            i++;
-            if (i == equation.size()) {
-                element = null;
-            } else {
-                element = equation.get(i);
-            }
-            if (element instanceof Brackets) {
-                Brackets bracket = (Brackets) element;
-                if (bracket.isOpening()) {
-                    bracketsCounter++;
-                } else {
-                    bracketsCounter--;
-                }
-                if (bracketsCounter < 0) {
-                    System.out.println("BracketsCounter is negative, something is horribly wrong! :'(");
-                } else {
-                    added = addBracketAtPosition(i + 1, bracketsCounter, Brackets.CLOSING);
-                }
-            } else if (element instanceof Number) {
-                added = addBracketAtPosition(i + 1, bracketsCounter, Brackets.CLOSING);
-            } else if (element == null) {
-                added = addBracketAtPosition(i, bracketsCounter, Brackets.CLOSING);
-            }
-        }
-    }
 
     private int handleBrackets(int i) {
         Calculator subCalculator = new Calculator(false);
