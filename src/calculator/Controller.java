@@ -60,7 +60,7 @@ public class Controller {
     @FXML
     JFXButton decimal;
     @FXML
-    JFXButton plusminus;
+    JFXButton bracketClose;
     @FXML
     JFXButton percent;
     @FXML
@@ -70,7 +70,7 @@ public class Controller {
     @FXML
     JFXButton cube;
     @FXML
-    JFXButton inverse;
+    JFXButton bracketOpen;
     private Map<KeyCode, JFXButton> map = new HashMap<>();
     //private ScriptEngine scriptEngine;
     private Calculator calculator = new Calculator();
@@ -114,6 +114,10 @@ public class Controller {
         map.put(KeyCode.DIGIT9, numpad9);
         map.put(KeyCode.DECIMAL, decimal);
 
+        //TODO change to keyCombination
+        map.put(KeyCode.K, bracketOpen);
+        map.put(KeyCode.L, bracketClose);
+
         Platform.runLater(() -> numbers.requestFocus());
     }
 
@@ -139,6 +143,7 @@ public class Controller {
     private void calc() {
 
         numbers.setText(decimalFormat.format(calculator.getResult()));
+        calculator.clear();
 
         //TODO Use Calculator Class
         /*try {

@@ -44,7 +44,7 @@
                GridPane.columnIndex="3" GridPane.rowIndex="6"/>
     <JFXButton fx:id="numpad0" mnemonicParsing="false" onAction="#buttonClick" styleClass="numberButton" text="0"
                GridPane.columnIndex="2" GridPane.rowIndex="7"/>
-    <JFXButton fx:id="plusminus" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text=")"
+    <JFXButton fx:id="bracketClose" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text=")"
                GridPane.columnIndex="1" GridPane.rowIndex="7"/>
     <JFXButton fx:id="decimal" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text=","
                GridPane.columnIndex="3" GridPane.rowIndex="7"/>
@@ -72,7 +72,7 @@
                GridPane.rowIndex="5"/>
     <JFXButton fx:id="cube" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="±"
                GridPane.rowIndex="6"/>
-    <JFXButton fx:id="inverse" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="("
+    <JFXButton fx:id="bracketOpen" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="("
                GridPane.rowIndex="7"/>
     <JFXTextField fx:id="numbers" alignment="CENTER_RIGHT" onKeyPressed="#onKeyPressed"
                   onKeyReleased="#onKeyReleased" onKeyTyped="#onKeyTyped" prefWidth="550.0" styleClass="numbers"

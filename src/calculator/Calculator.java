@@ -24,6 +24,7 @@ public class Calculator {
     private ArrayList<EquationElement> equation = new ArrayList<>();
     private double result;
     private int indent = 0;
+    private int leftBracketPosition;
 
     void addElement(EquationElement element) {
         equation.add(element);
@@ -32,6 +33,7 @@ public class Calculator {
 
     void clear() {
         equation.clear();
+        indent = 0;
     }
 
     private void calc() {
@@ -41,8 +43,10 @@ public class Calculator {
         Operator o = null;
 
         //TODO do some more magic here
-        addBrackets();
-        simplifyBrackets();
+        if (indent == 0) {
+            addBrackets();
+        }
+        while (simplifyBrackets()) ;
 
         int i = 0;
         while (i < equation.size()) {
@@ -115,8 +119,23 @@ public class Calculator {
         }
         result.append(ANSI_RESET);
         System.out.println(result);
+    }
 
 
+    private void logHighlight(int h, String ansi_color, int h2) {
+        StringBuilder result = new StringBuilder();
+        result.append(getIndent());
+        for (int i = 0; i < equation.size(); i++) {
+            if (i == h || i == h2) {
+                result.append(ansi_color);
+            }
+            result.append(equation.get(i)).append(" ");
+            if (i == h || i == h2) {
+                result.append(ANSI_RESET);
+            }
+        }
+        result.append(ANSI_RESET);
+        System.out.println(result);
     }
 
     private String getIndent() {
@@ -127,23 +146,24 @@ public class Calculator {
         return result.toString();
     }
 
-    private void simplifyBrackets() {
+    private boolean simplifyBrackets() {
         EquationElement first = equation.get(0);
         EquationElement last = equation.get(equation.size() - 1);
         if (first instanceof Brackets && last instanceof Brackets) {
             if (((Brackets) first).isOpening() && ((Brackets) last).isClosing()) {
                 int bracketCounter = 0;
                 if (!unresolvedBrackets(bracketCounter)) {
-                    System.out.println("Simplify Brackets:");
-                    logHighlight(0, ANSI_RED);
-                    logHighlight(equation.size() - 1, ANSI_RED);
+                    //logHighlight(0, ANSI_RED);
+                    //logHighlight(equation.size() - 1, ANSI_RED);
+                    logHighlight(0, ANSI_RED, equation.size() - 1);
                     equation.remove(first);
                     equation.remove(last);
                     indent += 2;
+                    return true;
                 }
             }
         }
-
+        return false;
     }
 
     private boolean unresolvedBrackets(int bracketCounter) {
@@ -172,7 +192,6 @@ public class Calculator {
                 if (element instanceof Operator) {
                     Operator o = (Operator) element;
                     if (o.getPriority() == priority) {
-                        //System.out.println("Add Brackets:");
                         addLeftBracket(i);
                         addRightBracket(i);
                         i++;  // Springe ein Element nach Rechts, da links eine Klammer hinzugefügt wurde.
@@ -192,23 +211,38 @@ public class Calculator {
             EquationElement element = equation.get(i);
             if (element instanceof Brackets) {
                 Brackets bracket = (Brackets) element;
-                if (bracket.isOpening()) {
+                if (bracket.isClosing()) {
                     bracketsCounter++;
                 } else {
                     bracketsCounter--;
                 }
                 if (bracketsCounter < 0) {
                     System.out.println("BracketsCounter is negative, something is horribly wrong! :'(");
+                } else {
+                    added = addBracketAtPosition(i, bracketsCounter, Brackets.OPENING);
                 }
             } else if (element instanceof Number) {
-                if (bracketsCounter == 0) {
-                    equation.add(i, new Brackets(Brackets.OPENING));
-                    //logHighlight(i, ANSI_GREEN);
-                    added = true;
-                }
+                added = addBracketAtPosition(i, bracketsCounter, Brackets.OPENING);
+            } else if (element == null) {
+                added = addBracketAtPosition(0, bracketsCounter, Brackets.OPENING);
+
             }
         }
     }
+
+    private boolean addBracketAtPosition(int i, int bracketsCounter, boolean type) {
+        if (bracketsCounter == 0) {
+            equation.add(i, new Brackets(type));
+            if (type == Brackets.OPENING) {
+                leftBracketPosition = i;
+            } else {
+                logHighlight(leftBracketPosition, ANSI_GREEN, i);
+            }
+            return true;
+        }
+        return false;
+    }
+
 
     private void addRightBracket(int i) {
         boolean added = false;
@@ -230,20 +264,13 @@ public class Calculator {
                 }
                 if (bracketsCounter < 0) {
                     System.out.println("BracketsCounter is negative, something is horribly wrong! :'(");
+                } else {
+                    added = addBracketAtPosition(i + 1, bracketsCounter, Brackets.CLOSING);
                 }
             } else if (element instanceof Number) {
-                if (bracketsCounter == 0) {
-                    equation.add(i + 1, new Brackets(Brackets.CLOSING));
-                    //logHighlight(i + 1, ANSI_GREEN);
-                    added = true;
-                }
+                added = addBracketAtPosition(i + 1, bracketsCounter, Brackets.CLOSING);
             } else if (element == null) {
-                if (bracketsCounter == 0) {
-                    equation.add(i, new Brackets(Brackets.CLOSING));
-                    //logHighlight(i, ANSI_GREEN);
-                    added = true;
-                }
-
+                added = addBracketAtPosition(i, bracketsCounter, Brackets.CLOSING);
             }
         }
     }
@@ -289,7 +316,7 @@ public class Calculator {
         double subResult = subCalculator.getResult();
         logHighlight(start, end, ANSI_RED);
         equation.subList(start, end + 1).clear();
-        indent += end - start;
+        //indent += end - start;
         equation.add(start, new Number(subResult));
         logHighlight(start, ANSI_GREEN);
     }
