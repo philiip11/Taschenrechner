@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 
 import java.text.DecimalFormat;
@@ -79,19 +80,15 @@ public class Controller {
     private DecimalFormat decimalFormat = new DecimalFormat("#.############");
     private boolean clearOnNextInput = false;
 
-
-    private final KeyCodeCombination operator_add = new KeyCodeCombination(KeyCode.DIGIT7, KeyCodeCombination.SHIFT_DOWN);
     private static Map<KeyCode, JFXButton> shiftComboMap = new HashMap<>();
-
-
+    private final KeyCodeCombination operator_add = new KeyCodeCombination(KeyCode.DIGIT7, KeyCodeCombination.SHIFT_DOWN);
 
 
     public void initialize() {
         //TODO Use Calculator Class
-
-        //with shift pressed
         //ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
         //scriptEngine = scriptEngineManager.getEngineByName("js");
+
         map.put(KeyCode.ENTER, enter);
         map.put(KeyCode.NUMPAD0, numpad0);
         map.put(KeyCode.NUMPAD1, numpad1);
@@ -105,7 +102,6 @@ public class Controller {
         map.put(KeyCode.NUMPAD9, numpad9);
         map.put(KeyCode.ADD, add);
         map.put(KeyCode.PLUS, add);
-        //map.put(operator_add, add);                 //TODO multiple keys on action
         map.put(KeyCode.SUBTRACT, subtract);
         map.put(KeyCode.MINUS, subtract);
         map.put(KeyCode.MULTIPLY, multiply);
@@ -126,18 +122,19 @@ public class Controller {
         map.put(KeyCode.DECIMAL, decimal);
 
 
-        shiftComboMap.put(KeyCode.DIGIT7, divide);
-        shiftComboMap.put(KeyCode.PLUS, multiply);
 
 
         //TODO change to keyCombination
         map.put(KeyCode.K, bracketOpen);
         map.put(KeyCode.L, bracketClose);
+        shiftComboMap.put(KeyCode.DIGIT7, divide);
+        shiftComboMap.put(KeyCode.PLUS, multiply);
+        //map.put(operator_add, add);//multiple keys on action //keycomb doesn't work in key map
 
         Platform.runLater(() -> numbers.requestFocus());
     }
 
-//    public static void findAndExecuteKey(KeyEvent event){
+//    public static void findAndExecuteKey(KeyEvent event){    //testing
 //
 //        KeyCode keyCode = event.getCode();
 //        JFXButton jfxb = shiftComboMap.get(keyCode);
@@ -153,9 +150,6 @@ public class Controller {
 //
 //
 //    }
-
-
-
 
 
     public void onKeyPressed(KeyEvent keyEvent) {
@@ -228,7 +222,7 @@ public class Controller {
                 addOperator(new Percentage());
                 break;
             case "±":
-                numbers.setText(String.valueOf(Integer.parseInt(numbers.getText()) * (-1)));
+                numbers.setText(String.valueOf(Integer.parseInt(numbers.getText())*(-1)));
                 break;
 
             case "=":
@@ -291,12 +285,21 @@ public class Controller {
         KeyCode keyCode = keyEvent.getCode();
         JFXButton jfxb = shiftComboMap.get(keyCode);
         //if exist fires corresponding button
-        if(jfxb !=null){
-            KeyCodeCombination combination = new KeyCodeCombination(keyCode,CONTROL_DOWN);
-            if (combination.match(keyEvent)){
+        if (jfxb != null) {
+            KeyCodeCombination combination = new KeyCodeCombination(keyCode, CONTROL_DOWN);
+            if (combination.match(keyEvent)) {
                 jfxb = shiftComboMap.get(keyCode);
-                jfxb.fire();
+                jfxb.getOnKeyPressed();
+                return;
             }
         }
+        //if no combinations found use single button mapping
+        jfxb = map.get(keyCode);
+        if (jfxb != null) {
+            jfxb = map.get(keyCode);
+            jfxb.getOnKeyPressed();
+        }
     }
+
+//
 }
