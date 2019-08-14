@@ -15,7 +15,7 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
-import static javafx.scene.input.KeyCombination.SHIFT_DOWN;
+import static javafx.scene.input.KeyCombination.*;
 
 public class Controller {
     @FXML
@@ -73,14 +73,18 @@ public class Controller {
     JFXButton cube;
     @FXML
     JFXButton bracketOpen;
+    @FXML
+    JFXButton plusMinus;
+
     private Map<KeyCode, JFXButton> map = new HashMap<>();
+    private Map<KeyCode, JFXButton> shiftComboMap = new HashMap<>();
+    private Map<KeyCode, JFXButton> strgAltComboMap = new HashMap<>();
+
+
     //private ScriptEngine scriptEngine;
     private Calculator calculator = new Calculator(true);
     private DecimalFormat decimalFormat = new DecimalFormat("#.############");
     private boolean clearOnNextInput = false;
-
-    private static Map<KeyCode, JFXButton> shiftComboMap = new HashMap<>();
-    private final KeyCodeCombination operator_add = new KeyCodeCombination(KeyCode.DIGIT7, KeyCodeCombination.SHIFT_DOWN);
 
 
     public void initialize() {
@@ -120,18 +124,16 @@ public class Controller {
         map.put(KeyCode.DIGIT9, numpad9);       //keyboard
         map.put(KeyCode.DECIMAL, decimal);      //numpad ,
         map.put(KeyCode.COMMA, decimal);        //keyboard ,
+        map.put(KeyCode.F9, plusMinus);        //keyboard ,
 
-
-
-
-        //TODO change to keyCombination
-        map.put(KeyCode.K, bracketOpen);
-        map.put(KeyCode.L, bracketClose);
+        shiftComboMap.put(KeyCode.DIGIT5, percent);
         shiftComboMap.put(KeyCode.DIGIT7, divide);
         shiftComboMap.put(KeyCode.DIGIT8, bracketOpen);
         shiftComboMap.put(KeyCode.DIGIT9, bracketClose);
-        shiftComboMap.put(KeyCode.PLUS, multiply);
-        //map.put(operator_add, add);//multiple keys on action //keycomb doesn't work in key map
+        shiftComboMap.put(KeyCode.SUBTRACT, plusMinus);
+
+        strgAltComboMap.put(KeyCode.Q, sqrt);
+
 
         Platform.runLater(() -> numbers.requestFocus());
     }
@@ -224,7 +226,7 @@ public class Controller {
                 addOperator(new Percentage());
                 break;
             case "±":
-                numbers.setText(String.valueOf(Integer.parseInt(numbers.getText())*(-1)));
+                plusMinusKey();
                 break;
 
             case "=":
@@ -244,6 +246,13 @@ public class Controller {
                     numbers.setText(numbers.getText(0, numbers.getLength() - 1));
                 }
                 break;
+        }
+    }
+
+    private void plusMinusKey() {
+        try {
+            numbers.setText(String.valueOf(Integer.parseInt(numbers.getText()) * (-1)));
+        } catch (NumberFormatException ignored) {
         }
     }
 
@@ -290,6 +299,12 @@ public class Controller {
             KeyCodeCombination combination = new KeyCodeCombination(keyCode, SHIFT_DOWN);  // SHIFT anstelle von CTRL :)
             if (combination.match(keyEvent)) {
                 return shiftComboMap.get(keyCode);
+            }
+        }
+        if (strgAltComboMap.get(keyCode) != null) {
+            KeyCodeCombination combination = new KeyCodeCombination(keyCode, CONTROL_DOWN, ALT_DOWN);  // ALT GR?
+            if (combination.match(keyEvent)) {
+                return strgAltComboMap.get(keyCode);
             }
         }
         //if no combinations found use single button mapping
