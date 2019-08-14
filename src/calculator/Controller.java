@@ -69,9 +69,7 @@ public class Controller {
     @FXML
     JFXButton sqrt;
     @FXML
-    JFXButton square;
-    @FXML
-    JFXButton cube;
+    JFXButton power;
     @FXML
     JFXButton bracketOpen;
     @FXML
@@ -129,7 +127,7 @@ public class Controller {
         map.put(KeyCode.DECIMAL, decimal);      //numpad ,
         map.put(KeyCode.COMMA, decimal);        //keyboard ,
         map.put(KeyCode.F9, plusMinus);        //keyboard ,
-        map.put(KeyCode.DEAD_CIRCUMFLEX, square);
+        map.put(KeyCode.DEAD_CIRCUMFLEX, power);
 
         //TODO ^-Taste für Potenzen
         shiftComboMap.put(KeyCode.DIGIT5, percent);
@@ -147,19 +145,6 @@ public class Controller {
         bracketCounterBadge.setEnabled(false);
     }
 
-//    public void findAndExecuteKey(KeyEvent event){    //testing purposes  try 1
-//
-//        KeyCode keyCode = event.getCode();
-//        JFXButton jfxb = shiftComboMap.get(keyCode);
-//        //if exist fires corresponding button
-//        if(jfxb !=null){
-//            KeyCodeCombination combination = new KeyCodeCombination(keyCode,CONTROL_DOWN);
-//            if (combination.match(event)){
-//                jfxb = shiftComboMap.get(keyCode);
-//               jfxb.fire();
-//            }
-//        }
-//    }
 
 
     public void onKeyPressed(KeyEvent keyEvent) {

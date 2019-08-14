@@ -68,7 +68,7 @@
                GridPane.rowIndex="3"/>
     <JFXButton fx:id="sqrt" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="√"
                GridPane.rowIndex="4"/>
-    <JFXButton fx:id="square" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="^"
+    <JFXButton fx:id="power" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="^"
                GridPane.rowIndex="5"/>
     <JFXButton fx:id="plusMinus" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="±"
                GridPane.rowIndex="6"/>

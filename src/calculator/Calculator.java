@@ -81,24 +81,30 @@ public class Calculator {
     private void parseResult() {
         if (equation.size() == 1) {
             result = ((Number) equation.get(0)).getValue(); // Das einzig verbleibende Element ist das Ergebnis
-        } else {
-            System.out.println("Multiple results!?");       // Wenn man Quatsch eingibt, kommt Quatsch heraus...
-            System.out.println(this.toString());
+        } else if (equation.size() == 2) {
+            if (equation.get(0) instanceof Brackets && equation.get(1) instanceof Brackets) {
+
+            } else {
+                System.out.println("Multiple results!?");       // Wenn man Quatsch eingibt, kommt Quatsch heraus...
+                System.out.println(this.toString());
+            }
         }
     }
 
 
     private boolean simplifyBrackets() {
-        EquationElement first = equation.get(0);
-        EquationElement last = equation.get(equation.size() - 1);
-        if (first instanceof Brackets && last instanceof Brackets) {
-            if (((Brackets) first).isOpening() && ((Brackets) last).isClosing()) {
-                if (!unresolvedBrackets()) {
-                    Highlighter.log(0, Highlighter.RED, equation.size() - 1, equation, indent);
-                    equation.remove(first);             // Wenn erstes und letztes Element Klammern sind
-                    equation.remove(last);              // und diese nicht benötigt werden, dann
-                    indent += 2;                        // werden diese entfernt
-                    return true;
+        if (equation.size() > 1) {
+            EquationElement first = equation.get(0);
+            EquationElement last = equation.get(equation.size() - 1);
+            if (first instanceof Brackets && last instanceof Brackets) {
+                if (((Brackets) first).isOpening() && ((Brackets) last).isClosing()) {
+                    if (!unresolvedBrackets()) {
+                        Highlighter.log(0, Highlighter.RED, equation.size() - 1, equation, indent);
+                        equation.remove(first);             // Wenn erstes und letztes Element Klammern sind
+                        equation.remove(last);              // und diese nicht benötigt werden, dann
+                        indent += 2;                        // werden diese entfernt
+                        return true;
+                    }
                 }
             }
         }
@@ -206,6 +212,7 @@ public class Calculator {
         }
         return bracketsCounter;
     }
+
     private boolean addBracketAtPosition(int i, int bracketsCounter, boolean type) {
         if (bracketsCounter == 0) {             // Prüfe, ob alle Klammern aufgelöst sind
             equation.add(i, new Brackets(type));
