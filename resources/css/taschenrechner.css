@@ -42,3 +42,16 @@
     -fx-font-size: 14.0px;
     -fx-text-fill: WHITE;
 }
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-arrow {
+    -fx-padding: 0 0 0 0;
+    -fx-background-color: #ff1744;
+}
+
+.scroll-pane .button {
+    -fx-background-color: #0d47a1;
+}

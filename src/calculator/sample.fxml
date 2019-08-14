@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.*?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <GridPane alignment="center" hgap="10" minHeight="900.0" minWidth="600.0" style="-fx-background-color: #444444;"
@@ -73,18 +74,20 @@
     <JFXButton fx:id="plusMinus" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="±"
                GridPane.rowIndex="6"/>
     <StackPane GridPane.hgrow="NEVER" GridPane.rowIndex="7" GridPane.vgrow="NEVER">
-        <JFXBadge fx:id="bracketCounterBadge" position="BOTTOM_RIGHT" text="0" styleClass="text-badge">
+        <JFXBadge fx:id="bracketCounterBadge" position="BOTTOM_RIGHT" styleClass="text-badge" text="0">
             <JFXButton fx:id="bracketOpen" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton"
                        text="("/>
         </JFXBadge>
     </StackPane>
     <JFXTextField fx:id="numbers" alignment="CENTER_RIGHT" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased"
                   onKeyTyped="#onKeyTyped" prefWidth="550.0" styleClass="numbers" GridPane.columnSpan="5"
-                  GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2"/>
-    <Label fx:id="equation" minWidth="500.0" prefWidth="550.0" textAlignment="RIGHT" textFill="WHITE"
-           GridPane.columnSpan="5" GridPane.hgrow="ALWAYS">
-        <font>
-            <Font size="24.0" />
-        </font>
-    </Label>
+                  GridPane.rowIndex="1"/>
+    <ScrollPane prefHeight="52.0" prefWidth="550.0" style="-fx-background-color: transparent;" vbarPolicy="NEVER"
+                GridPane.columnSpan="5" GridPane.hgrow="ALWAYS">
+        <Label fx:id="equation" textAlignment="RIGHT" textFill="WHITE">
+            <font>
+                <Font size="24.0"/>
+            </font>
+        </Label>
+    </ScrollPane>
 </GridPane>

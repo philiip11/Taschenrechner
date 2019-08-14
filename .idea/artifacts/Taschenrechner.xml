@@ -1,0 +1,27 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" name="Taschenrechner">
+    <output-path>$PROJECT_DIR$/out/artifacts/Taschenrechner</output-path>
+    <properties id="javafx-properties">
+      <options>
+        <option name="appClass" value="calculator.Main" />
+        <option name="description" value="" />
+        <option name="height" value="900" />
+        <option name="htmlPlaceholderId" value="" />
+        <option name="icons">
+          <JavaFxApplicationIcons>
+            <option name="linuxIcon" value="$PROJECT_DIR$/resources/icon2000.png" />
+            <option name="windowsIcon" value="$PROJECT_DIR$/resources/icon.ico" />
+          </JavaFxApplicationIcons>
+        </option>
+        <option name="title" value="Taschenrechner" />
+        <option name="vendor" value="" />
+        <option name="version" value="1.0" />
+      </options>
+    </properties>
+    <root id="root">
+      <element id="archive" name="Taschenrechner.jar">
+        <element id="module-output" name="Taschenrechner" />
+      </element>
+    </root>
+  </artifact>
+</component>
