@@ -139,12 +139,10 @@ public class Controller {
         strgAltComboMap.put(KeyCode.Q, sqrt);
 
 
-
         Platform.runLater(() -> numbers.requestFocus());
 
         bracketCounterBadge.setEnabled(false);
     }
-
 
 
     public void onKeyPressed(KeyEvent keyEvent) {
@@ -155,6 +153,16 @@ public class Controller {
             button.disarm();
             button.arm();
             button.fire();
+            if (keyEvent.getCode().toString().contains("DEAD")) {       // Tote Tasten wie z.B. ^ lösen kein onKeyReleased aus
+                new Thread(() -> {                                      // deshalb wird hier nach 300ms ein loslassen simuliert
+                    try {
+                        Thread.sleep(300);
+                        Platform.runLater(button::disarm);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }).start();
+            }
         }
         keyEvent.consume();
 
@@ -162,6 +170,9 @@ public class Controller {
 
     public void onKeyReleased(KeyEvent keyEvent) {
         //JFXButton button = map.get(keyEvent.getCode());
+        //        System.out.println(keyEvent.getCharacter());
+        //        System.out.println(keyEvent.getText());
+        //        System.out.println(keyEvent.getCode());
         JFXButton button = findKey(keyEvent);
         if (button != null) {
             button.disarm();
