@@ -203,7 +203,7 @@ public class Calculator {
             }
             if (i == equation.size()) {
                 element = null;             // Falls die schließende Klammer ans Ende gesetzt werden soll,
-            } else {                        // darf es keine NullPointerException geben.
+            } else{                        // darf es keine NullPointerException geben.
                 element = equation.get(i);
             }
             if (element instanceof Brackets) {

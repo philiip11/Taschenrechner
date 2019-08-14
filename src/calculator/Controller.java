@@ -127,7 +127,7 @@ public class Controller {
         map.put(KeyCode.DECIMAL, decimal);      //numpad ,
         map.put(KeyCode.COMMA, decimal);        //keyboard ,
         map.put(KeyCode.F9, plusMinus);        //keyboard ,
-        map.put(KeyCode.DEAD_CIRCUMFLEX, power);
+        map.put(KeyCode.DEAD_CIRCUMFLEX, power); // ^
 
         // TODO COPY
         // TODO Paste
@@ -138,6 +138,7 @@ public class Controller {
         shiftComboMap.put(KeyCode.DIGIT9, bracketClose);
         shiftComboMap.put(KeyCode.SUBTRACT, plusMinus);
         shiftComboMap.put(KeyCode.DIGIT0, enter);
+
 
         strgAltComboMap.put(KeyCode.Q, sqrt);
 
@@ -340,7 +341,7 @@ public class Controller {
     private JFXButton findKey(KeyEvent keyEvent) {
         KeyCode keyCode = keyEvent.getCode();
         if (shiftComboMap.get(keyCode) != null) {
-            KeyCodeCombination combination = new KeyCodeCombination(keyCode, SHIFT_DOWN);  // SHIFT anstelle von CTRL :)
+            KeyCodeCombination combination = new KeyCodeCombination(keyCode, SHIFT_DOWN); // SHIFT anstelle von CTRL :)
             if (combination.match(keyEvent)) {
                 return shiftComboMap.get(keyCode);
             }

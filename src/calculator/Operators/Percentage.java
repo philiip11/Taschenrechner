@@ -3,7 +3,7 @@ package calculator.Operators;
 import calculator.Number;
 import calculator.Operator;
 
-//TODO
+
 public class Percentage extends Operator {
 
     @Override
@@ -15,10 +15,10 @@ public class Percentage extends Operator {
     public Number calc(Number a, Number b) {
         return new Number((a.getValue() / 100 * b.getValue()));
     }
-
+    //TODO
     @Override
-    public Number calc(Number b) {
-        return new Number(b.getValue() / 100);
+    public Number calc(Number a) {    //%[Number] --> Caused by: java.lang.ArrayIndexOutOfBoundsException: -1
+        return new Number(a.getValue() / 100);
     }
 
     @Override
