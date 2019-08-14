@@ -129,9 +129,9 @@ public class Controller {
         map.put(KeyCode.DECIMAL, decimal);      //numpad ,
         map.put(KeyCode.COMMA, decimal);        //keyboard ,
         map.put(KeyCode.F9, plusMinus);        //keyboard ,
+        map.put(KeyCode.DEAD_CIRCUMFLEX, square);
 
         //TODO ^-Taste für Potenzen
-
         shiftComboMap.put(KeyCode.DIGIT5, percent);
         shiftComboMap.put(KeyCode.DIGIT7, divide);
         shiftComboMap.put(KeyCode.DIGIT8, bracketOpen);
@@ -141,12 +141,13 @@ public class Controller {
         strgAltComboMap.put(KeyCode.Q, sqrt);
 
 
+
         Platform.runLater(() -> numbers.requestFocus());
 
         bracketCounterBadge.setEnabled(false);
     }
 
-//    public static void findAndExecuteKey(KeyEvent event){    //testing purposes  try 1
+//    public void findAndExecuteKey(KeyEvent event){    //testing purposes  try 1
 //
 //        KeyCode keyCode = event.getCode();
 //        JFXButton jfxb = shiftComboMap.get(keyCode);
@@ -332,7 +333,6 @@ public class Controller {
 
     private JFXButton findKey(KeyEvent keyEvent) {
         KeyCode keyCode = keyEvent.getCode();
-        //if exist fires corresponding button
         if (shiftComboMap.get(keyCode) != null) {
             KeyCodeCombination combination = new KeyCodeCombination(keyCode, SHIFT_DOWN);  // SHIFT anstelle von CTRL :)
             if (combination.match(keyEvent)) {

@@ -26,3 +26,4 @@ public class Percentage extends Operator {
         return "%";
     }
 }
+
