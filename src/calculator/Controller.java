@@ -1,6 +1,7 @@
 package calculator;
 
 import calculator.Operators.*;
+import com.jfoenix.controls.JFXBadge;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.application.Platform;
@@ -75,6 +76,8 @@ public class Controller {
     JFXButton bracketOpen;
     @FXML
     JFXButton plusMinus;
+    @FXML
+    JFXBadge bracketCounterBadge;
 
     private Map<KeyCode, JFXButton> map = new HashMap<>();
     private Map<KeyCode, JFXButton> shiftComboMap = new HashMap<>();
@@ -86,6 +89,7 @@ public class Controller {
     private DecimalFormat decimalFormat = new DecimalFormat("#.############");
     private boolean clearOnNextInput = false;
 
+    private int bracketsCounter = 0;
 
     public void initialize() {
         //TODO Use Calculator Class
@@ -126,6 +130,8 @@ public class Controller {
         map.put(KeyCode.COMMA, decimal);        //keyboard ,
         map.put(KeyCode.F9, plusMinus);        //keyboard ,
 
+        //TODO ^-Taste für Potenzen
+
         shiftComboMap.put(KeyCode.DIGIT5, percent);
         shiftComboMap.put(KeyCode.DIGIT7, divide);
         shiftComboMap.put(KeyCode.DIGIT8, bracketOpen);
@@ -136,6 +142,8 @@ public class Controller {
 
 
         Platform.runLater(() -> numbers.requestFocus());
+
+        bracketCounterBadge.setEnabled(false);
     }
 
 //    public static void findAndExecuteKey(KeyEvent event){    //testing purposes  try 1
@@ -214,10 +222,10 @@ public class Controller {
                 addOperator(new SquareRoot());
                 break;
             case "(":
-                addOperator(new Brackets(Brackets.OPENING));
+                addBracket(Brackets.OPENING);
                 break;
             case ")":
-                addOperator(new Brackets(Brackets.CLOSING));
+                addBracket(Brackets.CLOSING);
                 break;
             case "^":
                 addOperator(new Power());
@@ -233,11 +241,13 @@ public class Controller {
                 addNumber();
                 updateEquation();
                 calc();
+                resetBracketsCounter();
                 clearOnNextInput = true;
                 break;
             case "C":
                 calculator.clear();
                 updateEquation();
+                resetBracketsCounter();
             case "CE":
                 numbers.setText("");
                 break;
@@ -247,6 +257,33 @@ public class Controller {
                 }
                 break;
         }
+    }
+
+    private void addBracket(boolean opening) {
+        clearIfNecessary();
+        if (updateBracketsCounter(opening ? 1 : -1)) {
+            addOperator(new Brackets(opening));
+        }
+    }
+
+    private void resetBracketsCounter() {
+        updateBracketsCounter(-bracketsCounter);
+    }
+
+    private boolean updateBracketsCounter(int i) {
+        bracketsCounter += i;
+        if (bracketsCounter < 0) {
+            bracketsCounter = 0;
+            return false;
+        }
+        if (bracketsCounter == 0) {
+            bracketCounterBadge.setEnabled(false);
+        } else {
+            bracketCounterBadge.setEnabled(true);
+        }
+        bracketCounterBadge.setText(String.valueOf(bracketsCounter));
+        return true;
+
     }
 
     private void plusMinusKey() {
@@ -261,6 +298,7 @@ public class Controller {
             clearOnNextInput = false;
             numbers.setText("");
             updateEquation();
+            resetBracketsCounter();
         }
     }
 
