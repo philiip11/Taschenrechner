@@ -15,7 +15,7 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
-import static javafx.scene.input.KeyCombination.CONTROL_DOWN;
+import static javafx.scene.input.KeyCombination.SHIFT_DOWN;
 
 public class Controller {
     @FXML
@@ -128,6 +128,8 @@ public class Controller {
         map.put(KeyCode.K, bracketOpen);
         map.put(KeyCode.L, bracketClose);
         shiftComboMap.put(KeyCode.DIGIT7, divide);
+        shiftComboMap.put(KeyCode.DIGIT8, bracketOpen);
+        shiftComboMap.put(KeyCode.DIGIT9, bracketClose);
         shiftComboMap.put(KeyCode.PLUS, multiply);
         //map.put(operator_add, add);//multiple keys on action //keycomb doesn't work in key map
 
@@ -150,7 +152,9 @@ public class Controller {
 
 
     public void onKeyPressed(KeyEvent keyEvent) {
-        JFXButton button = map.get(keyEvent.getCode());
+        //JFXButton button = map.get(keyEvent.getCode());
+        JFXButton button = findKey(keyEvent);
+
         if (button != null) {
             button.disarm();
             button.arm();
@@ -161,7 +165,8 @@ public class Controller {
     }
 
     public void onKeyReleased(KeyEvent keyEvent) {
-        JFXButton button = map.get(keyEvent.getCode());
+        //JFXButton button = map.get(keyEvent.getCode());
+        JFXButton button = findKey(keyEvent);
         if (button != null) {
             button.disarm();
         }
@@ -278,6 +283,18 @@ public class Controller {
         keyEvent.consume();
     }
 
+    private JFXButton findKey(KeyEvent keyEvent) {
+        KeyCode keyCode = keyEvent.getCode();
+        //if exist fires corresponding button
+        if (shiftComboMap.get(keyCode) != null) {
+            KeyCodeCombination combination = new KeyCodeCombination(keyCode, SHIFT_DOWN);  // SHIFT anstelle von CTRL :)
+            if (combination.match(keyEvent)) {
+                return shiftComboMap.get(keyCode);
+            }
+        }
+        //if no combinations found use single button mapping
+        return map.get(keyCode);
+    }
 
 
 }
