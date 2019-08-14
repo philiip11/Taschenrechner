@@ -8,7 +8,7 @@ public class Calculator {
     private double result;
     private int indent = 0;
     private boolean root;
-    private int leftBracketPosition;
+    private int rightBracketPosition;
 
     Calculator(boolean root) {
         this.root = root;
@@ -22,6 +22,7 @@ public class Calculator {
     void clear() {
         equation.clear();
         indent = 0;
+        result = 0;
     }
 
     private void calc() {
@@ -43,7 +44,7 @@ public class Calculator {
         Operator o = null;
         int i = 0;
         while (i < equation.size()) {
-            //logHighlight(i, ANSI_BLUE);
+            Highlighter.log(i, Highlighter.BLUE, equation, indent);
             EquationElement element = equation.get(i);  // Gehe Elemente v.l.n.r. durch.
             if (element instanceof Number) {
                 if (a == null) {
@@ -72,6 +73,26 @@ public class Calculator {
 
             } else if (element instanceof Operator) {
                 o = (Operator) element;                 // Merke den Operator für den nächsten Durchgang
+                if (o.useOneArgument()) {
+                    i++;
+                    if (equation.size() > i) {
+                        EquationElement nextElement = equation.get(i);
+                        if (nextElement instanceof Brackets) {
+                            Brackets nextBracket = (Brackets) nextElement;
+                            if (nextBracket.isOpening()) {
+                                i = handleBrackets(i);
+                                nextElement = equation.get(i);
+                            }
+                        }
+                        if (nextElement instanceof Number) {
+                            a = (Number) nextElement;
+                            a = doCalculation(a, o, i);
+                        }
+                    }
+                }
+
+                //TODO Use Oprator if OneSided
+
 
             }
             i++;                                        // Schiebe den Index ein Element weiter
@@ -80,7 +101,11 @@ public class Calculator {
 
     private void parseResult() {
         if (equation.size() == 1) {
-            result = ((Number) equation.get(0)).getValue(); // Das einzig verbleibende Element ist das Ergebnis
+            if (equation.get(0) instanceof Number) {
+                result = ((Number) equation.get(0)).getValue(); // Das einzig verbleibende Element ist das Ergebnis
+            } else {
+                System.out.println("SYNTAX ERROR");
+            }
         } else if (equation.size() == 2) {
             if (equation.get(0) instanceof Brackets && equation.get(1) instanceof Brackets) {
 
@@ -140,8 +165,12 @@ public class Calculator {
                     if (o.getPriority() == priority) {          // in welcher Reihenfolge Operationen durchgeführt werden
                         //addLeftBracket(i);                      // sollen.
                         //addRightBracket(i);
-                        addBracket(i, true);
-                        addBracket(i, false);
+                        addBracket(i, Brackets.CLOSING);
+                        if (o.useOneArgument()) {
+                            addBracketAtPosition(i, 0, Brackets.OPENING);
+                        } else {
+                            addBracket(i, Brackets.OPENING);
+                        }
 
                         i++;        // Springe ein Element nach Rechts, da links eine Klammer hinzugefügt wurde.
                     }
@@ -216,10 +245,10 @@ public class Calculator {
     private boolean addBracketAtPosition(int i, int bracketsCounter, boolean type) {
         if (bracketsCounter == 0) {             // Prüfe, ob alle Klammern aufgelöst sind
             equation.add(i, new Brackets(type));
-            if (type == Brackets.OPENING) {
-                leftBracketPosition = i;            // Merke Position, damit nur eine Zeile je Klammernpaar ausgegeben wird.
+            if (type == Brackets.CLOSING) {
+                rightBracketPosition = i;            // Merke Position, damit nur eine Zeile je Klammernpaar ausgegeben wird.
             } else {
-                Highlighter.log(leftBracketPosition, Highlighter.GREEN, i, equation, indent);
+                Highlighter.log(rightBracketPosition + 1, Highlighter.GREEN, i, equation, indent);
             }
             return true;
         }
@@ -283,7 +312,7 @@ public class Calculator {
         Number c;
         Number b;
         c = o.calc(a);
-        System.out.println(getIndent() + Highlighter.CYAN + a.toString() + " " + o.toString() + " = " + c.toString() + Highlighter.RESET);
+        System.out.println(getIndent() + Highlighter.CYAN + o.toString() + " " + a.toString() + " = " + c.toString() + Highlighter.RESET);
         Highlighter.log(i - 1, i, Highlighter.RED, equation, indent);
         equation.remove(i);
         equation.remove(i - 1);

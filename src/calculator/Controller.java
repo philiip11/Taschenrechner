@@ -80,6 +80,7 @@ public class Controller {
     private Map<KeyCode, JFXButton> map = new HashMap<>();
     private Map<KeyCode, JFXButton> shiftComboMap = new HashMap<>();
     private Map<KeyCode, JFXButton> strgAltComboMap = new HashMap<>();
+    private Map<KeyCode, JFXButton> strgComboMap = new HashMap<>();
 
 
     //private ScriptEngine scriptEngine;
@@ -90,7 +91,6 @@ public class Controller {
     private int bracketsCounter = 0;
 
     public void initialize() {
-        //TODO Use Calculator Class
         //ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
         //scriptEngine = scriptEngineManager.getEngineByName("js");
 
@@ -129,6 +129,8 @@ public class Controller {
         map.put(KeyCode.F9, plusMinus);        //keyboard ,
         map.put(KeyCode.DEAD_CIRCUMFLEX, power);
 
+        // TODO COPY
+        // TODO Paste
 
         shiftComboMap.put(KeyCode.DIGIT5, percent);
         shiftComboMap.put(KeyCode.DIGIT7, divide);
