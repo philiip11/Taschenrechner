@@ -44,7 +44,7 @@ public class Calculator {
         Operator o = null;
         int i = 0;
         while (i < equation.size()) {
-            Highlighter.log(i, Highlighter.BLUE, equation, indent);
+            //Highlighter.log(i, Highlighter.BLUE, equation, indent); // DEBUG
             EquationElement element = equation.get(i);  // Gehe Elemente v.l.n.r. durch.
             if (element instanceof Number) {
                 if (a == null) {
@@ -91,8 +91,6 @@ public class Calculator {
                     }
                 }
 
-                //TODO Use Oprator if OneSided
-
 
             }
             i++;                                        // Schiebe den Index ein Element weiter
@@ -108,10 +106,17 @@ public class Calculator {
             }
         } else if (equation.size() == 2) {
             if (equation.get(0) instanceof Brackets && equation.get(1) instanceof Brackets) {
-
+                //Empty Brackets?
             } else {
                 System.out.println("Multiple results!?");       // Wenn man Quatsch eingibt, kommt Quatsch heraus...
                 System.out.println(this.toString());
+                for (int i = equation.size() - 1; i >= 0; i--) {
+                    if (equation.get(i) instanceof Number) {
+                        Number number = (Number) equation.get(i);
+                        result = number.getValue();
+                        return;
+                    }
+                }
             }
         }
     }
@@ -286,11 +291,14 @@ public class Calculator {
     }
 
     private void replaceBracketsWithSubResult(Calculator subCalculator, int start, int end) {
-        double subResult = subCalculator.getResult();
+        Number subResult = new Number(subCalculator.getResult());
         Highlighter.log(start, end, Highlighter.RED, equation, indent);
+        if (start == 0) {
+            indent += getSubStringLength(start, end);
+            indent -= subResult.toString().length() + 1;
+        }
         equation.subList(start, end + 1).clear();
-        indent += end - start;
-        equation.add(start, new Number(subResult));
+        equation.add(start, subResult);
         Highlighter.log(start, Highlighter.GREEN, equation, indent);
     }
 
