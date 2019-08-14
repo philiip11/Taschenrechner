@@ -118,6 +118,12 @@ public class Calculator {
                     }
                 }
             }
+        } else if (equation.size() == 0) {
+
+        } else {
+            Calculator subCalculator = new Calculator(false);
+            handleBrackets(0);
+            parseResult();
         }
     }
 
@@ -270,21 +276,32 @@ public class Calculator {
         EquationElement subElement;
         while (inLoop) {
             i++;
-            subElement = equation.get(i);
-            if (subElement instanceof Brackets) {
-                Brackets brackets = (Brackets) subElement;
-                if (brackets.isOpening()) {                     // Prüfe auf nicht aufgelöste Klammern,
-                    bracketsCounter++;                          // siehe updateBracketsCounter(...)
-                } else {
-                    bracketsCounter--;
+            if (i < equation.size()) {
+                subElement = equation.get(i);
+                if (subElement instanceof Brackets) {
+                    Brackets brackets = (Brackets) subElement;
+                    if (brackets.isOpening()) {                     // Prüfe auf nicht aufgelöste Klammern,
+                        bracketsCounter++;                          // siehe updateBracketsCounter(...)
+                    } else {
+                        bracketsCounter--;
+                    }
                 }
-            }
-            if (bracketsCounter == 0) {
-                inLoop = false;
-                replaceBracketsWithSubResult(subCalculator, start, i);  // Das Ergebnis des subCalculators wird an die
-                i = start - 1;                                          // Stelle der Klammern eingefügt.
+                if (bracketsCounter == 0) {
+                    inLoop = false;
+                    replaceBracketsWithSubResult(subCalculator, start, i);  // Das Ergebnis des subCalculators wird an die
+                    i = start - 1;                                          // Stelle der Klammern eingefügt.
+                } else {
+                    subCalculator.addElement(subElement);
+                }
             } else {
-                subCalculator.addElement(subElement);
+                i = equation.size() - 2;
+                bracketsCounter = 0;
+                if (equation.get(i + 1) instanceof Brackets) {
+                    Brackets lastElement = (Brackets) equation.get(i + 1);
+                    if (lastElement.isClosing()) {
+                        bracketsCounter++;
+                    }
+                }
             }
         }
         return i;
