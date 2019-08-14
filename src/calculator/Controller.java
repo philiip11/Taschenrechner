@@ -240,6 +240,7 @@ public class Controller {
 
             case "=":
                 addNumber();
+                addMissingBrackets();
                 updateEquation();
                 calc();
                 resetBracketsCounter();
@@ -260,10 +261,16 @@ public class Controller {
         }
     }
 
-    private void addBracket(boolean opening) {
+    private void addBracket(boolean type) {
         clearIfNecessary();
-        if (updateBracketsCounter(opening ? 1 : -1)) {
-            addOperator(new Brackets(opening));
+        if (updateBracketsCounter(type ? 1 : -1)) {
+            addOperator(new Brackets(type));
+        }
+    }
+
+    private void addMissingBrackets() {
+        while (bracketsCounter > 0) {
+            addBracket(Brackets.CLOSING);
         }
     }
 
