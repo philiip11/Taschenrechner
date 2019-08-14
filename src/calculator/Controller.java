@@ -137,6 +137,7 @@ public class Controller {
         shiftComboMap.put(KeyCode.DIGIT8, bracketOpen);
         shiftComboMap.put(KeyCode.DIGIT9, bracketClose);
         shiftComboMap.put(KeyCode.SUBTRACT, plusMinus);
+        shiftComboMap.put(KeyCode.DIGIT0, enter);
 
         strgAltComboMap.put(KeyCode.Q, sqrt);
 
