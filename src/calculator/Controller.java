@@ -129,7 +129,7 @@ public class Controller {
         map.put(KeyCode.F9, plusMinus);        //keyboard ,
         map.put(KeyCode.DEAD_CIRCUMFLEX, power);
 
-        //TODO ^-Taste für Potenzen
+
         shiftComboMap.put(KeyCode.DIGIT5, percent);
         shiftComboMap.put(KeyCode.DIGIT7, divide);
         shiftComboMap.put(KeyCode.DIGIT8, bracketOpen);
