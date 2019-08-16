@@ -1,9 +1,7 @@
 package calculator;
 
 import calculator.Operators.*;
-import com.jfoenix.controls.JFXBadge;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -76,6 +74,10 @@ public class Controller {
     JFXButton plusMinus;
     @FXML
     JFXBadge bracketCounterBadge;
+    @FXML
+    JFXListView<Label> history;
+    @FXML
+    JFXScrollPane scroll;
 
     private Map<KeyCode, JFXButton> map = new HashMap<>();
     private Map<KeyCode, JFXButton> shiftComboMap = new HashMap<>();
@@ -146,6 +148,9 @@ public class Controller {
         Platform.runLater(() -> numbers.requestFocus());
 
         bracketCounterBadge.setEnabled(false);
+
+        history.depthProperty().set(1);
+        history.setExpanded(true);
     }
 
 
@@ -185,8 +190,14 @@ public class Controller {
 
     private void calc() {
 
+        addToHistory();
         numbers.setText(decimalFormat.format(calculator.getResult()));
         calculator.clear();
+    }
+
+    private void addToHistory() {
+        history.getItems().add(new Label(calculator.toString()));
+        history.setExpanded(true);
     }
 
     public void buttonClick(ActionEvent actionEvent) {

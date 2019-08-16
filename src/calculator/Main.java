@@ -9,7 +9,6 @@ import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -26,8 +25,8 @@ public class Main extends Application {
         JFXDecorator decorator = new JFXDecorator(primaryStage, root);
         decorator.setCustomMaximize(true);
         decorator.setGraphic(new ImageView(this.getClass().getResource("/icon32.png").toExternalForm()));
-        
-        Scene scene = new Scene(decorator, 600, 900, true, SceneAntialiasing.BALANCED);
+
+        Scene scene = new Scene(decorator, 1200, 900, true, SceneAntialiasing.BALANCED);
         final ObservableList<String> stylesheets = scene.getStylesheets();
         stylesheets.addAll(getClass().getResource("/css/jfoenix-fonts.css").toExternalForm(),
                 getClass().getResource("/css/jfoenix-design.css").toExternalForm(),

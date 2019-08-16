@@ -55,3 +55,12 @@
 .scroll-pane .button {
     -fx-background-color: #0d47a1;
 }
+
+.jfx-scroll-pane * {
+    -fx-background-color: transparent;
+    -fx-text-fill: black;
+}
+
+.jfx-scroll-pane .label {
+    -fx-text-fill: orangered;
+}

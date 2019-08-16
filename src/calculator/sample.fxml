@@ -5,25 +5,27 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<GridPane alignment="center" hgap="10" minHeight="900.0" minWidth="600.0" style="-fx-background-color: #444444;"
+<GridPane alignment="center" hgap="10" minHeight="900.0" minWidth="1200.0" style="-fx-background-color: #444444;"
           vgap="10" xmlns="http://javafx.com/javafx/8.0.192" xmlns:fx="http://javafx.com/fxml/1"
           fx:controller="calculator.Controller">
     <columnConstraints>
-        <ColumnConstraints />
-        <ColumnConstraints />
-        <ColumnConstraints />
-        <ColumnConstraints />
-        <ColumnConstraints />
+        <ColumnConstraints/>
+        <ColumnConstraints/>
+        <ColumnConstraints/>
+        <ColumnConstraints/>
+        <ColumnConstraints/>
+        <ColumnConstraints/>
+        <ColumnConstraints/>
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints />
-        <RowConstraints />
-        <RowConstraints />
-        <RowConstraints />
-        <RowConstraints />
-        <RowConstraints />
-        <RowConstraints />
-        <RowConstraints />
+        <RowConstraints/>
+        <RowConstraints/>
+        <RowConstraints/>
+        <RowConstraints/>
+        <RowConstraints/>
+        <RowConstraints/>
+        <RowConstraints/>
+        <RowConstraints/>
     </rowConstraints>
     <JFXButton fx:id="numpad7" mnemonicParsing="false" onAction="#buttonClick" styleClass="numberButton" text="7"
                GridPane.columnIndex="1" GridPane.rowIndex="4"/>
@@ -90,4 +92,9 @@
             </font>
         </Label>
     </ScrollPane>
+
+    <JFXListView fx:id="history" style="-fx-background-color: transparent;" GridPane.columnIndex="6"
+                 GridPane.rowSpan="8">
+    </JFXListView>
+
 </GridPane>
