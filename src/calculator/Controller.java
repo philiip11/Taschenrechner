@@ -205,7 +205,17 @@ public class Controller {
 
     public void onHistoryClick(MouseEvent mouseEvent) {
         Label l = history.getSelectionModel().getSelectedItem();
-        equation.setText(l.getText());
+        String eq = l.getText().split("\n")[0].replace('=', ' ').trim();
+        String n = l.getText().split("\n")[1];
+        equation.setText(eq);
+        numbers.setText(n);
+        calculator.clear();
+        parseText(eq);
+
+    }
+
+    private void parseText(String t) {
+        //TODO Parse Text from Clipboard or History
     }
 
     public void buttonClick(ActionEvent actionEvent) {
