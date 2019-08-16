@@ -56,11 +56,23 @@
     -fx-background-color: #0d47a1;
 }
 
-.jfx-scroll-pane * {
-    -fx-background-color: transparent;
-    -fx-text-fill: black;
+.jfx-list-view .label {
+    -fx-font-size: 22px;
+    -fx-min-width: 0px;
+    -fx-text-fill: white;
+    -fx-text-alignment: right;
+    -fx-wrap-text: false;
+
 }
 
-.jfx-scroll-pane .label {
-    -fx-text-fill: orangered;
+.jfx-list-view .jfx-list-cell:selected .label {
+    -fx-text-fill: white;
+    -fx-alignment: center-right;
+}
+
+.jfx-list-view .jfx-list-cell {
+    -fx-min-width: 340px;
+    -fx-background-color: #333333;
+    -fx-alignment: center-right;
+
 }

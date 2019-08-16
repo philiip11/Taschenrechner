@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 
 import java.text.DecimalFormat;
 import java.util.HashMap;
@@ -190,14 +191,21 @@ public class Controller {
 
     private void calc() {
 
-        addToHistory();
         numbers.setText(decimalFormat.format(calculator.getResult()));
+        addToHistory();
         calculator.clear();
     }
 
     private void addToHistory() {
-        history.getItems().add(new Label(calculator.toString()));
+        String text = equation.getText() + " =\n" + numbers.getText();
+        history.getItems().add(new Label(text));
         history.setExpanded(true);
+    }
+
+
+    public void onHistoryClick(MouseEvent mouseEvent) {
+        Label l = history.getSelectionModel().getSelectedItem();
+        equation.setText(l.getText());
     }
 
     public void buttonClick(ActionEvent actionEvent) {

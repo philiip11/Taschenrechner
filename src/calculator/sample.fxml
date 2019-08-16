@@ -93,7 +93,8 @@
         </Label>
     </ScrollPane>
 
-    <JFXListView fx:id="history" style="-fx-background-color: transparent;" GridPane.columnIndex="6"
+    <JFXListView fx:id="history" depth="1" minWidth="350.0" onMouseClicked="#onHistoryClick" prefWidth="350.0"
+                 showTooltip="true" style="-fx-background-color: transparent;" GridPane.columnIndex="6"
                  GridPane.rowSpan="8">
     </JFXListView>
 
