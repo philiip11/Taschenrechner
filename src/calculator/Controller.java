@@ -5,11 +5,15 @@ import com.jfoenix.controls.JFXBadge;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextField;
+import javafx.animation.Interpolator;
+import javafx.animation.RotateTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.*;
+import javafx.scene.transform.Rotate;
+import javafx.util.Duration;
 
 import java.text.DecimalFormat;
 import java.util.HashMap;
@@ -85,6 +89,7 @@ public class Controller {
 
     private Clipboard clipboard = Clipboard.getSystemClipboard();
     private final String placeholder = ".";
+    private RotateTransition flipper;
 
 
     //private ScriptEngine scriptEngine;
@@ -155,6 +160,14 @@ public class Controller {
 
         history.depthProperty().set(1);
         history.setExpanded(true);
+
+        flipper = new RotateTransition(Duration.millis(500), enter);
+        flipper.setAxis(Rotate.X_AXIS);
+        flipper.setFromAngle(0);
+        flipper.setToAngle(360);
+        flipper.setInterpolator(Interpolator.EASE_BOTH);
+        flipper.setCycleCount(1);
+
     }
 
 
@@ -292,6 +305,7 @@ public class Controller {
                 break;
 
             case "=":
+                flipper.play();
                 addNumber();
                 addMissingBrackets();
                 updateEquation();

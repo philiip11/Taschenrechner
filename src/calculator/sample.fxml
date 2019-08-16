@@ -58,7 +58,7 @@
     <JFXButton fx:id="add" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="+"
                GridPane.columnIndex="4" GridPane.rowIndex="6"/>
     <JFXButton fx:id="enter" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="="
-               GridPane.columnIndex="4" GridPane.rowIndex="7"/>
+               translateZ="-10.0" GridPane.columnIndex="4" GridPane.rowIndex="7"/>
     <JFXButton fx:id="delete" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="CE"
                GridPane.columnIndex="1" GridPane.rowIndex="3"/>
     <JFXButton fx:id="escape" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="C"
