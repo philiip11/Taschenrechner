@@ -265,8 +265,10 @@ public class Controller {
                 addOperator(new Subtract());
                 break;
             case "×":
+            case "*":
                 addOperator(new Multiply());
                 break;
+            case "/":
             case "÷":
                 addOperator(new Divide());
                 break;
