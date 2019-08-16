@@ -26,7 +26,7 @@ public class Main extends Application {
         decorator.setCustomMaximize(true);
         decorator.setGraphic(new ImageView(this.getClass().getResource("/icon32.png").toExternalForm()));
 
-        Scene scene = new Scene(decorator, 1200, 900, true, SceneAntialiasing.BALANCED);
+        Scene scene = new Scene(decorator, 1000, 900, true, SceneAntialiasing.BALANCED);
         final ObservableList<String> stylesheets = scene.getStylesheets();
         stylesheets.addAll(getClass().getResource("/css/jfoenix-fonts.css").toExternalForm(),
                 getClass().getResource("/css/jfoenix-design.css").toExternalForm(),
