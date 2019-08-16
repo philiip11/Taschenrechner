@@ -84,7 +84,7 @@ public class Controller {
     private Map<KeyCode, Runnable> strgComboMap = new HashMap<>();
 
     private Clipboard clipboard = Clipboard.getSystemClipboard();
-    private ClipboardContent clipboardContent;
+    private final String placeholder = ".";
 
 
     //private ScriptEngine scriptEngine;
@@ -195,6 +195,7 @@ public class Controller {
     private void calc() {
 
         numbers.setText(decimalFormat.format(calculator.getResult()));
+        formatNumber();
         addToHistory();
         calculator.clear();
     }
@@ -210,15 +211,16 @@ public class Controller {
         Label l = history.getSelectionModel().getSelectedItem();
         String eq = l.getText().split("\n")[0].replace('=', ' ').trim();
         String n = l.getText().split("\n")[1];
-        numbers.setText(n);
         calculator.clear();
         parseText(eq);
+        numbers.setText(n);
+        formatNumber();
         updateEquation();
 
     }
 
     private void copy() {
-        clipboardContent = new ClipboardContent();
+        ClipboardContent clipboardContent = new ClipboardContent();
         clipboardContent.putString(numbers.getText());
         clipboard.setContent(clipboardContent);
     }
@@ -253,8 +255,7 @@ public class Controller {
             case "8":
             case "9":
             case ",":
-                clearIfNecessary();
-                numbers.setText(numbers.getText() + input);
+                handleNumberKey(input);
                 break;
 
             case "+":
@@ -306,9 +307,30 @@ public class Controller {
             case "⌫":
                 if (numbers.getLength() > 0) {
                     numbers.setText(numbers.getText(0, numbers.getLength() - 1));
+                    formatNumber();
                 }
                 break;
         }
+    }
+
+    private void handleNumberKey(String input) {
+        clearIfNecessary();
+        numbers.setText(numbers.getText() + input);
+        formatNumber();
+
+    }
+
+    private void formatNumber() {
+        String text = numbers.getText();
+        text = text.replace(placeholder, "");
+        int start = text.length() - 3;
+        if (text.contains(",")) {
+            start = text.indexOf(",") - 3;
+        }
+        for (int i = start; i > 0; i -= 3) {
+            text = text.substring(0, i) + placeholder + text.substring(i);
+        }
+        numbers.setText(text);
     }
 
     private void addBracket(boolean type) {
@@ -346,7 +368,8 @@ public class Controller {
 
     private void plusMinusKey() {
         try {
-            numbers.setText(String.valueOf(Integer.parseInt(numbers.getText()) * (-1)));
+            numbers.setText(String.valueOf(Integer.parseInt(numbers.getText().replace(placeholder, "")) * (-1)));
+            formatNumber();
         } catch (NumberFormatException ignored) {
         }
     }
@@ -368,7 +391,8 @@ public class Controller {
 
     private void addNumber() {
         if (!numbers.getText().isEmpty()) {
-            Number n = new Number(Double.parseDouble(numbers.getText().replace(",", ".")));
+            String text = numbers.getText().replace(placeholder, "").replace(",", ".");
+            Number n = new Number(Double.parseDouble(text));
             numbers.setText("");
             calculator.addElement(n);
         }
