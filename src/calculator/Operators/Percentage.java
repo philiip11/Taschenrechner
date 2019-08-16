@@ -15,9 +15,9 @@ public class Percentage extends Operator {
     public Number calc(Number a, Number b) {
         return new Number((a.getValue() / 100 * b.getValue()));
     }
-    //TODO
+
     @Override
-    public Number calc(Number a) {    //%[Number] --> Caused by: java.lang.ArrayIndexOutOfBoundsException: -1
+    public Number calc(Number a) {
         return new Number(a.getValue() / 100);
     }
 

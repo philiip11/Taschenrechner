@@ -228,7 +228,6 @@ public class Controller {
     }
 
     private void parseText(String t) {
-        //TODO Parse Text from Clipboard or History
         for (int i = 0; i < t.length(); i++) {
             handleKey(t.substring(i, i + 1));
         }
