@@ -1,15 +1,15 @@
 package calculator;
 
 import calculator.Operators.*;
-import com.jfoenix.controls.*;
+import com.jfoenix.controls.JFXBadge;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.JFXTextField;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCodeCombination;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.*;
 
 import java.text.DecimalFormat;
 import java.util.HashMap;
@@ -77,13 +77,14 @@ public class Controller {
     JFXBadge bracketCounterBadge;
     @FXML
     JFXListView<Label> history;
-    @FXML
-    JFXScrollPane scroll;
 
     private Map<KeyCode, JFXButton> map = new HashMap<>();
     private Map<KeyCode, JFXButton> shiftComboMap = new HashMap<>();
     private Map<KeyCode, JFXButton> strgAltComboMap = new HashMap<>();
-    private Map<KeyCode, JFXButton> strgComboMap = new HashMap<>();
+    private Map<KeyCode, Runnable> strgComboMap = new HashMap<>();
+
+    private Clipboard clipboard = Clipboard.getSystemClipboard();
+    private ClipboardContent clipboardContent;
 
 
     //private ScriptEngine scriptEngine;
@@ -132,8 +133,9 @@ public class Controller {
         map.put(KeyCode.F9, plusMinus);        //keyboard ,
         map.put(KeyCode.DEAD_CIRCUMFLEX, power); // ^
 
-        // TODO COPY
-        // TODO Paste
+
+        strgComboMap.put(KeyCode.C, this::copy);
+        strgComboMap.put(KeyCode.V, this::paste);
 
         shiftComboMap.put(KeyCode.DIGIT5, percent);
         shiftComboMap.put(KeyCode.DIGIT7, divide);
@@ -158,7 +160,7 @@ public class Controller {
 
     public void onKeyPressed(KeyEvent keyEvent) {
         //JFXButton button = map.get(keyEvent.getCode());
-        JFXButton button = findKey(keyEvent);
+        JFXButton button = findKey(keyEvent, true);
 
         if (button != null) {
             button.disarm();
@@ -184,7 +186,7 @@ public class Controller {
         //        System.out.println(keyEvent.getCharacter());
         //        System.out.println(keyEvent.getText());
         //        System.out.println(keyEvent.getCode());
-        JFXButton button = findKey(keyEvent);
+        JFXButton button = findKey(keyEvent, false);
         if (button != null) {
             button.disarm();
         }
@@ -204,23 +206,42 @@ public class Controller {
     }
 
 
-    public void onHistoryClick(MouseEvent mouseEvent) {
+    public void onHistoryClick() {
         Label l = history.getSelectionModel().getSelectedItem();
         String eq = l.getText().split("\n")[0].replace('=', ' ').trim();
         String n = l.getText().split("\n")[1];
-        equation.setText(eq);
         numbers.setText(n);
         calculator.clear();
         parseText(eq);
+        updateEquation();
 
+    }
+
+    private void copy() {
+        clipboardContent = new ClipboardContent();
+        clipboardContent.putString(numbers.getText());
+        clipboard.setContent(clipboardContent);
+    }
+
+    private void paste() {
+        parseText(clipboard.getString());
     }
 
     private void parseText(String t) {
         //TODO Parse Text from Clipboard or History
+        for (int i = 0; i < t.length(); i++) {
+            handleKey(t.substring(i, i + 1));
+        }
+        addNumber();
+        updateEquation();
     }
 
     public void buttonClick(ActionEvent actionEvent) {
         String input = ((JFXButton) actionEvent.getSource()).getText();
+        handleKey(input);
+    }
+
+    private void handleKey(String input) {
         switch (input) {
             case "0":
             case "1":
@@ -354,11 +375,6 @@ public class Controller {
         }
     }
 
-    private void addNumber(double d) {
-        Number n = new Number(d);
-        calculator.addElement(n);
-        updateEquation();
-    }
 
     private void updateEquation() {
         equation.setText(calculator.toString());
@@ -368,7 +384,7 @@ public class Controller {
         keyEvent.consume();
     }
 
-    private JFXButton findKey(KeyEvent keyEvent) {
+    private JFXButton findKey(KeyEvent keyEvent, boolean pressed) {
         KeyCode keyCode = keyEvent.getCode();
         if (shiftComboMap.get(keyCode) != null) {
             KeyCodeCombination combination = new KeyCodeCombination(keyCode, SHIFT_DOWN); // SHIFT anstelle von CTRL :)
@@ -380,6 +396,12 @@ public class Controller {
             KeyCodeCombination combination = new KeyCodeCombination(keyCode, CONTROL_DOWN, ALT_DOWN);  // ALT GR?
             if (combination.match(keyEvent)) {
                 return strgAltComboMap.get(keyCode);
+            }
+        }
+        if (strgComboMap.get(keyCode) != null) {
+            KeyCodeCombination combination = new KeyCodeCombination(keyCode, CONTROL_DOWN); // STRG
+            if (combination.match(keyEvent) && pressed) {
+                strgComboMap.get(keyCode).run();
             }
         }
         //if no combinations found use single button mapping
