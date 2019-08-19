@@ -114,8 +114,8 @@
     <JFXButton fx:id="sinus" mnemonicParsing="false" onAction="#buttonClick" style="-fx-font-size: 26px;"
                styleClass="otherButton" text="sin" GridPane.columnIndex="2" GridPane.rowIndex="6"/>
     <JFXButton fx:id="cosinus" mnemonicParsing="false" onAction="#buttonClick" style="-fx-font-size: 26px;"
-               styleClass="otherButton" text="cos" GridPane.columnIndex="2" GridPane.rowIndex="6"/>
+               styleClass="otherButton" text="cos" GridPane.columnIndex="2" GridPane.rowIndex="7"/>
     <JFXButton fx:id="tangens" mnemonicParsing="false" onAction="#buttonClick" style="-fx-font-size: 26px;"
-               styleClass="otherButton" text="tan" GridPane.columnIndex="2" GridPane.rowIndex="6"/>
+               styleClass="otherButton" text="tan" GridPane.columnIndex="2" GridPane.rowIndex="8"/>
 
 </GridPane>
