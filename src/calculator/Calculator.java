@@ -98,6 +98,7 @@ public class Calculator {
     }
 
     private void parseResult() {
+
         if (equation.size() == 1) {
             if (equation.get(0) instanceof Number) {
                 result = ((Number) equation.get(0)).getValue(); // Das einzig verbleibende Element ist das Ergebnis
