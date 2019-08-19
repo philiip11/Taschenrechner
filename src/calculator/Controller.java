@@ -79,6 +79,11 @@ public class Controller {
     @FXML
     JFXButton plusMinus;
     @FXML
+    JFXButton pi;
+    @FXML
+    JFXButton euler;
+
+    @FXML
     JFXBadge bracketCounterBadge;
     @FXML
     JFXListView<Label> history;
@@ -138,6 +143,8 @@ public class Controller {
         map.put(KeyCode.COMMA, decimal);        //keyboard ,
         map.put(KeyCode.F9, plusMinus);        //keyboard ,
         map.put(KeyCode.DEAD_CIRCUMFLEX, power); // ^
+        map.put(KeyCode.P, pi); // ^
+        map.put(KeyCode.E, euler); // ^
 
 
 
@@ -214,11 +221,12 @@ public class Controller {
         formatNumber();
         addToHistory();
         calculator.clear();
+
     }
 
     private void addToHistory() {
         String text = equation.getText() + " =\n" + numbers.getText();
-        history.getItems().add(new Label(text));
+        history.getItems().add(0, new Label(text));
         history.setExpanded(true);
     }
 
@@ -272,6 +280,14 @@ public class Controller {
             case "9":
             case ",":
                 handleNumberKey(input);
+                break;
+
+            case "π":
+                addNumber(Math.PI, input);
+                break;
+
+            case "e":
+                addNumber(Math.E, input);
                 break;
 
             case "+":
@@ -418,6 +434,27 @@ public class Controller {
             numbers.setText("");
             calculator.addElement(n);
         }
+    }
+
+    /*
+    private void addNumber(double d) {
+        clearIfNecessary();
+        if (!numbers.getText().equals("")) {
+            addOperator(new Multiply());
+        }
+        Number n = new Number(d);
+        calculator.addElement(n);
+        updateEquation();
+    }*/
+
+    private void addNumber(double d, String name) {
+        clearIfNecessary();
+        if (!numbers.getText().equals("")) {
+            addOperator(new Multiply());
+        }
+        Number n = new Number(d, name);
+        calculator.addElement(n);
+        updateEquation();
     }
 
 

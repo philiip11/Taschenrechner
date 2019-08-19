@@ -6,10 +6,15 @@ public class Number extends EquationElement {
 
     private DecimalFormat decimalFormat = new DecimalFormat("#.###");
     private double value;
+    private String name;
 
     @Override
     public String toString() {
-        return decimalFormat.format(value);
+        if (name == null) {
+            return decimalFormat.format(value);
+        } else {
+            return name;
+        }
     }
 
     @Override
@@ -27,5 +32,10 @@ public class Number extends EquationElement {
 
     public Number(double value) {
         this.value = value;
+    }
+
+    public Number(double value, String name) {
+        this.value = value;
+        this.name = name;
     }
 }

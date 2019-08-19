@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXBadge?>
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXListView?>
-<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.*?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-
-<GridPane alignment="center" hgap="10" minHeight="900.0" minWidth="1200.0" style="-fx-background-color: #444444;" vgap="10" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="calculator.Controller">
+<GridPane alignment="center" hgap="10" minHeight="900.0" minWidth="1200.0" style="-fx-background-color: #444444;"
+          vgap="10" xmlns="http://javafx.com/javafx/8.0.192" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="calculator.Controller">
     <columnConstraints>
         <ColumnConstraints />
         <ColumnConstraints />
@@ -57,7 +52,9 @@
     <JFXButton fx:id="sqrt" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="√" GridPane.columnIndex="1" GridPane.rowIndex="4" />
     <JFXButton fx:id="power" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="^" GridPane.columnIndex="1" GridPane.rowIndex="5" />
     <JFXButton fx:id="plusMinus" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="±" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-   <JFXButton id="modulo" fx:id="modulo" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="Mod" GridPane.rowIndex="3" />
+
+    <JFXButton fx:id="modulo" mnemonicParsing="false" onAction="#buttonClick" text="Mod" styleClass="otherButton"
+               GridPane.rowIndex="3"/>
     <StackPane GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="7" GridPane.vgrow="NEVER">
         <JFXBadge fx:id="bracketCounterBadge" position="BOTTOM_RIGHT" styleClass="text-badge" text="0">
             <JFXButton fx:id="bracketOpen" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="(" />
@@ -74,5 +71,9 @@
 
     <JFXListView fx:id="history" depth="1" minWidth="350.0" onMouseClicked="#onHistoryClick" prefWidth="350.0" showTooltip="true" style="-fx-background-color: transparent;" GridPane.columnIndex="7" GridPane.rowSpan="8">
     </JFXListView>
+    <JFXButton fx:id="euler" mnemonicParsing="false" text="e" GridPane.rowIndex="5" styleClass="otherButton"
+               onAction="#buttonClick"/>
+    <JFXButton fx:id="pi" mnemonicParsing="false" text="π" GridPane.rowIndex="4" styleClass="otherButton"
+               onAction="#buttonClick"/>
 
 </GridPane>
