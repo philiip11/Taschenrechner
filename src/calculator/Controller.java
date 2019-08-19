@@ -153,7 +153,7 @@ public class Controller {
         map.put(KeyCode.E, euler); // ^
         map.put(KeyCode.M, modulo);
         map.put(KeyCode.S, sinus);
-        map.put(KeyCode.C, cosinus);
+        map.put(KeyCode.O, cosinus);
         map.put(KeyCode.T, tangens);
 
 
