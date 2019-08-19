@@ -10,7 +10,7 @@ public class Modulo extends Operator {
 
     @Override
     public Number calc(Number a, Number b) {
-        return new Number(Math.floor(a.getValue()/b.getValue()));
+        return new Number(Math.floor(a.getValue()%b.getValue()));
     }
 
     @Override

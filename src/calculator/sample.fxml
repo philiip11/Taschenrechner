@@ -57,7 +57,7 @@
     <JFXButton fx:id="sqrt" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="√" GridPane.columnIndex="1" GridPane.rowIndex="4" />
     <JFXButton fx:id="power" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="^" GridPane.columnIndex="1" GridPane.rowIndex="5" />
     <JFXButton fx:id="plusMinus" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="±" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-   <JFXButton fx:id="modulo" mnemonicParsing="false" onAction="#buttonClick" text="Mod" GridPane.rowIndex="3" />
+   <JFXButton id="modulo" fx:id="modulo" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="Mod" GridPane.rowIndex="3" />
     <StackPane GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="7" GridPane.vgrow="NEVER">
         <JFXBadge fx:id="bracketCounterBadge" position="BOTTOM_RIGHT" styleClass="text-badge" text="0">
             <JFXButton fx:id="bracketOpen" mnemonicParsing="false" onAction="#buttonClick" styleClass="otherButton" text="(" />
