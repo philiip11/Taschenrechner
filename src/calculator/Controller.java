@@ -26,7 +26,6 @@ public class Controller {
     Label equation;
     @FXML
     JFXTextField numbers;
-    //DONE Refactor (Shift+F6) all buttons to lowercase
     @FXML
     JFXButton enter;
     @FXML
