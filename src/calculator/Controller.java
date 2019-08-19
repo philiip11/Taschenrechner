@@ -82,6 +82,8 @@ public class Controller {
     JFXButton pi;
     @FXML
     JFXButton euler;
+    @FXML
+    JFXButton sinus;
 
     @FXML
     JFXBadge bracketCounterBadge;
@@ -146,6 +148,7 @@ public class Controller {
         map.put(KeyCode.P, pi); // ^
         map.put(KeyCode.E, euler); // ^
         map.put(KeyCode.M, modulo);
+        map.put(KeyCode.S, sinus);
 
 
         strgComboMap.put(KeyCode.C, this::copy);
@@ -305,6 +308,9 @@ public class Controller {
                 break;
             case "Mod":
                 addOperator(new Modulo());
+                break;
+            case "sin":
+                addOperator(new Sinus());
                 break;
             case "√":
                 addOperator(new SquareRoot());
