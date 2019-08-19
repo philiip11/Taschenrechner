@@ -148,7 +148,6 @@ public class Controller {
         map.put(KeyCode.M, modulo);
 
 
-
         strgComboMap.put(KeyCode.C, this::copy);
         strgComboMap.put(KeyCode.V, this::paste);
 
@@ -159,7 +158,6 @@ public class Controller {
         shiftComboMap.put(KeyCode.SUBTRACT, plusMinus);
         shiftComboMap.put(KeyCode.DIGIT0, enter);
         shiftComboMap.put(KeyCode.PLUS, multiply);
-
 
 
         strgAltComboMap.put(KeyCode.Q, sqrt);
@@ -305,7 +303,7 @@ public class Controller {
             case "÷":
                 addOperator(new Divide());
                 break;
-            case"Mod":
+            case "Mod":
                 addOperator(new Modulo());
                 break;
             case "√":

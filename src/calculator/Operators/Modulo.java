@@ -6,11 +6,13 @@ import calculator.Operator;
 public class Modulo extends Operator {
 
     @Override
-    public int getPriority(){return 2;}
+    public int getPriority() {
+        return 2;
+    }
 
     @Override
     public Number calc(Number a, Number b) {
-        return new Number(a.getValue()%b.getValue());
+        return new Number(a.getValue() % b.getValue());
     }
 
     @Override
