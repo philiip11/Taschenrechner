@@ -317,8 +317,10 @@ public class Controller {
                 break;
             case "sin":
                 addOperator(new Sinus());
+                break;
             case"cos":
                 addOperator(new Cosinus());
+                break;
             case"tan":
                 addOperator(new Tangent());
                 break;
