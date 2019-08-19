@@ -57,6 +57,8 @@ public class Controller {
     @FXML
     JFXButton divide;
     @FXML
+    JFXButton modulo;
+    @FXML
     JFXButton escape;
     @FXML
     JFXButton delete;
@@ -138,6 +140,7 @@ public class Controller {
         map.put(KeyCode.DEAD_CIRCUMFLEX, power); // ^
 
 
+
         strgComboMap.put(KeyCode.C, this::copy);
         strgComboMap.put(KeyCode.V, this::paste);
 
@@ -148,6 +151,7 @@ public class Controller {
         shiftComboMap.put(KeyCode.SUBTRACT, plusMinus);
         shiftComboMap.put(KeyCode.DIGIT0, enter);
         shiftComboMap.put(KeyCode.PLUS, multiply);
+        shiftComboMap.put(KeyCode.M, modulo);
 
 
         strgAltComboMap.put(KeyCode.Q, sqrt);
@@ -283,6 +287,9 @@ public class Controller {
             case "/":
             case "÷":
                 addOperator(new Divide());
+                break;
+            case"Mod":
+                addOperator(new Modulo());
                 break;
             case "√":
                 addOperator(new SquareRoot());
