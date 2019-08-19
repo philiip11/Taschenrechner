@@ -145,6 +145,7 @@ public class Controller {
         map.put(KeyCode.DEAD_CIRCUMFLEX, power); // ^
         map.put(KeyCode.P, pi); // ^
         map.put(KeyCode.E, euler); // ^
+        map.put(KeyCode.M, modulo);
 
 
 
@@ -158,7 +159,7 @@ public class Controller {
         shiftComboMap.put(KeyCode.SUBTRACT, plusMinus);
         shiftComboMap.put(KeyCode.DIGIT0, enter);
         shiftComboMap.put(KeyCode.PLUS, multiply);
-        shiftComboMap.put(KeyCode.M, modulo);
+
 
 
         strgAltComboMap.put(KeyCode.Q, sqrt);
