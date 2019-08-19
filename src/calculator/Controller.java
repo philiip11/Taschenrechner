@@ -84,6 +84,10 @@ public class Controller {
     JFXButton euler;
     @FXML
     JFXButton sinus;
+    @FXML
+    JFXButton cosinus;
+    @FXML
+    JFXButton tangens;
 
     @FXML
     JFXBadge bracketCounterBadge;
@@ -149,6 +153,8 @@ public class Controller {
         map.put(KeyCode.E, euler); // ^
         map.put(KeyCode.M, modulo);
         map.put(KeyCode.S, sinus);
+        map.put(KeyCode.C, cosinus);
+        map.put(KeyCode.T, tangens);
 
 
         strgComboMap.put(KeyCode.C, this::copy);
