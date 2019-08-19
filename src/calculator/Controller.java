@@ -12,7 +12,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.*;
-import javafx.scene.layout.GridPane;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 
@@ -88,10 +87,6 @@ public class Controller {
     JFXBadge bracketCounterBadge;
     @FXML
     JFXListView<Label> history;
-
-
-    @FXML
-    GridPane root;
 
     private Map<KeyCode, JFXButton> map = new HashMap<>();
     private Map<KeyCode, JFXButton> shiftComboMap = new HashMap<>();
@@ -220,7 +215,7 @@ public class Controller {
         }
     }
 
-    void calc() {
+    private void calc() {
 
         numbers.setText(decimalFormat.format(calculator.getResult()));
         formatNumber();
@@ -258,7 +253,7 @@ public class Controller {
         parseText(clipboard.getString());
     }
 
-    void parseText(String t) {
+    private void parseText(String t) {
         for (int i = 0; i < t.length(); i++) {
             handleKey(t.substring(i, i + 1));
         }
@@ -441,6 +436,7 @@ public class Controller {
         }
     }
 
+    /*
     private void addNumber(double d) {
         clearIfNecessary();
         if (!numbers.getText().equals("")) {
@@ -449,7 +445,7 @@ public class Controller {
         Number n = new Number(d);
         calculator.addElement(n);
         updateEquation();
-    }
+    }*/
 
     private void addNumber(double d, String name) {
         clearIfNecessary();
